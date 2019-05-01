@@ -1,21 +1,23 @@
-import {Column, Model, Table} from "sequelize-typescript";
+import { Column, Model, Table, DataType } from 'sequelize-typescript'
 
 @Table({
   timestamps: true,
-  tableName: "user"
+  tableName: 'users'
 })
 class User extends Model<User> {
   @Column({
+    type: DataType.TEXT,
     allowNull: false,
-    defaultValue: '',
+    defaultValue: ''
   })
-  name!: string;
+  name!: string
 
   @Column({
+    type: DataType.INTEGER,
     allowNull: false,
-    defaultValue: 0,
+    defaultValue: 0
   })
-  age!: number;
+  age!: number
 }
 
-export default User;
+export default User

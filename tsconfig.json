@@ -15,15 +15,9 @@
     "baseUrl": ".",
     "listEmittedFiles": true,
     "paths": {
-      "*": [
-        "*"
-      ]
+      "*": ["*"]
     }
   },
-  "include": [
-    "**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*"],
+  "exclude": ["node_modules", "client"]
 }
