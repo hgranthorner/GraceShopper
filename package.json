@@ -6,6 +6,7 @@
   "scripts": {
     "client:watch": "./node_modules/.bin/webpack -w",
     "client:build": "./node_modules/.bin/webpack",
+    "seed": "node js/server/seed.js",
     "server:watch": "./node_modules/.bin/tsc -w & ./node_modules/.bin/nodemon -w js/server/server.js",
     "server:build": "./node_modules/.bin/tsc",
     "start:dev": "npm run build-server & npm run webpack",
