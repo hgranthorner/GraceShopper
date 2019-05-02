@@ -4,10 +4,13 @@
 
 import express = require('express')
 import * as path from 'path'
+import { apiRoutes } from './routes'
 const app: express.Application = express()
 
 app.use(express.json())
-app.use(express.static(path.join(__dirname, '..', '..', 'client', 'dist')))
+app.use(express.static(path.join(__dirname, '..', '..', 'src', 'client', 'dist')))
+
+app.use('/api', apiRoutes)
 
 app.get('/boo', (req, res, next) => {
   res.send('Heres a sample route')
