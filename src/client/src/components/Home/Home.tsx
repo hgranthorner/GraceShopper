@@ -4,7 +4,7 @@ import ProductList from './ProductList'
 
 export default function Home() {
   return (
-    <div>
+    <div className="d-flex justify-content-around">
       <SideBar />
       <ProductList />
     </div>
