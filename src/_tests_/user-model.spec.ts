@@ -7,7 +7,7 @@ let sequelize: Sequelize
 
 describe('our user models', () => {
   beforeAll(() => {
-    return sync().then(conn => {
+    return sync({ force: true }).then(conn => {
       sequelize = conn
     })
   })

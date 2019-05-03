@@ -16,7 +16,8 @@
     "listEmittedFiles": true,
     "paths": {
       "*": ["*"]
-    }
+    },
+    "sourceMap": true
   },
   "include": ["**/*"],
   "exclude": ["node_modules", "client"]

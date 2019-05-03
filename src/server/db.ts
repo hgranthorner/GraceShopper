@@ -8,11 +8,15 @@ const conn = new Sequelize({
   modelPaths: [`${__dirname}/models`]
 })
 
-type Sync = () => Promise<Sequelize>
-const sync: Sync = () => {
+interface SeqOptsObj {
+  force?: boolean
+}
+
+type Sync = (optsObj?: SeqOptsObj) => Promise<Sequelize>
+const sync: Sync = (optsObj = {}) => {
   return new Promise((res, rej) => {
     conn
-      .sync()
+      .sync(optsObj)
       .then(() => {
         res(conn)
       })

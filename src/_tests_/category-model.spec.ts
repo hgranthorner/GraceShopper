@@ -7,9 +7,9 @@ import { promises } from 'fs'
 
 let sequelize: Sequelize
 
-describe('our product model', () => {
+describe('our category model', () => {
   beforeAll(() => {
-    return sync().then(conn => {
+    return sync({ force: true }).then(conn => {
       sequelize = conn
     })
   })
@@ -39,22 +39,23 @@ describe('our product model', () => {
   })
 
   test('a category can have many associated products', () => {
-    return Product.create({
-      name: 'bar',
-      price: 2.5,
-      description: 'this is bar',
-      categoryId: 2
-    }).then(() => {
-      return Category.findOne({
-        where: {
-          id: 2
-        },
-        include: [
-          {
-            model: Product
-          }
-        ]
-      }).then(category => expect(category!.product).toHaveLength(2))
-    })
+    return Category.create({ name: 'foo', description: 'this is foo' })
+      .then(category => {
+        return Promise.all([
+          Product.create({
+            name: 'bar',
+            price: 3.25,
+            description: 'this is bar',
+            categoryId: category.id
+          }),
+          Product.create({
+            name: 'bazz',
+            price: 1.35,
+            description: 'this is bazz',
+            categoryId: category.id
+          })
+        ])
+      })
+      .then(([bar, bazz]) => expect(bar.categoryId).toEqual(bazz.categoryId))
   })
 })
