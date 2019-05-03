@@ -1,13 +1,17 @@
 import React from 'react'
+import { HashRouter, Route, Switch } from 'react-router-dom'
+import { Home, Nav, Footer } from './components'
 
 export default class App extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Hello</h1>
-        <h2>Ready for some super very serious business</h2>
-        <p>All of these super duper cool businesses</p>
-      </div>
+      <HashRouter>
+        <Nav />
+        <Switch>
+          <Route path="/" exact component={Home} />
+        </Switch>
+        <Footer />
+      </HashRouter>
     )
   }
 }
