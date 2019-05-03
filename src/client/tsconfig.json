@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "module": "commonjs",
+    "jsx": "react",
+    "outDir": "../../js/client/src",
+    "strict": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "listEmittedFiles": true,
+    "paths": {
+      "*": ["*"]
+    }
+  },
+  "include": ["**/*"],
+  "exclude": ["node_modules", "server"]
+}
