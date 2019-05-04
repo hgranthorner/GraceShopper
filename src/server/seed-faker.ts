@@ -8,6 +8,7 @@ import Product from './models/product'
 import Category from './models/category'
 import conn from './db'
 
+// creates fakek users default quantity of 20.
 type fakeUsers = (count: number) => Array<Promise<User>>
 const fakeUsers = (count: number = 20) => {
   const result: User[] = []
@@ -22,14 +23,13 @@ const fakeUsers = (count: number = 20) => {
   return result
 }
 
+// creates fake Products. default quantity of 20 and randomly distributed into categories.
 type fakeProducts = (
   count: number,
   categories: number
 ) => Array<Promise<Product>>
-
 const fakeProducts = (count: number = 20, categories: number = 1) => {
   const result: Product[] = []
-
   for (let i = 0; i < count; ++i) {
     result.push(
       new Product({
@@ -45,12 +45,20 @@ const fakeProducts = (count: number = 20, categories: number = 1) => {
   return result
 }
 
-// name: 'Phone',
-// price: 5,
-// description: 'ring ring',
-// imageUrl: '',
-// quantity: 1,
-// categoryId: 1
+// Creates fake categories, defaults to 5
+type fakeCategories = (count: number) => Array<Promise<Category>>
+const fakeCategories = (count: number = 5) => {
+  const result: Category[] = []
+  for (let i = 0; i < count; ++i) {
+    result.push(
+      new Category({
+        name: faker.commerce.department(),
+        description: faker.lorem.sentence(5)
+      })
+    )
+  }
+  return result
+}
 
 conn
   .sync({ force: true })
@@ -71,6 +79,11 @@ conn
   })
   .then(() => {
     return Promise.all([
+      [
+        ...fakeCategories().map(category => {
+          category.save()
+        })
+      ],
       new Category({
         name: 'Electronics',
         description: 'sweet zip zaps'
