@@ -17,16 +17,6 @@ describe('our product model', () => {
     console.log('Exited connection successfully!')
     return
   })
-
-  test('a product can be created', () => {
-    return Product.create({
-      name: 'foo',
-      price: 3.25,
-      description: 'this is foo',
-      categoryId: 1
-    }).then(product => expect(product.name).toBe('foo'))
-  })
-
   test('a product cannot have an empty string as a name', () => {
     return Product.create({
       name: 'foo',
@@ -39,7 +29,7 @@ describe('our product model', () => {
       .catch(ex => expect(ex.message).not.toBe('product name cannot be empty'))
   })
 
-  test('a product has an associated category', () => {
+  test('a product can be created and has an associated category', () => {
     return Category.create({ name: 'bar', description: 'this is bar' }).then(
       category => {
         return Product.create({

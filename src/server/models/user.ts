@@ -1,4 +1,13 @@
-import { Column, Model, Table, DataType, NotEmpty } from 'sequelize-typescript'
+import {
+  Column,
+  Model,
+  Table,
+  DataType,
+  NotEmpty,
+  HasMany,
+  ForeignKey
+} from 'sequelize-typescript'
+import Order from './order'
 
 @Table({
   timestamps: true,
@@ -20,6 +29,9 @@ class User extends Model<User> {
     defaultValue: 0
   })
   password!: string
+
+  @HasMany(() => Order)
+  order!: Order[]
 }
 
 export default User

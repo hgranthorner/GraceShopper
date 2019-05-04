@@ -4,12 +4,16 @@
   "description": "",
   "main": "js/server/server.js",
   "scripts": {
+    "start": "node server.js",
+    "postinstall": "npm run webpack",
+    "webpack": "webpack",
+    "webpack:dev": "npm run webpack -- --mode=development --watch",
     "client:watch": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json -w &  ./node_modules/.bin/webpack -w",
     "client:build": "./node_modules/.bin/webpack",
     "seed": "node js/server/seed.js",
     "server:watch": "rm -rf ./js && ./node_modules/.bin/tsc -w & ./node_modules/.bin/nodemon -w js/server/server.js",
     "server:build": "./node_modules/.bin/tsc",
-    "start:dev": "npm run build-server & npm run webpack",
+    "start:dev": "npm run webpack:dev & DATABASE_URL=postgres://localhost/graceshopper nodemon server.js --ignore src/ --ignore dist/",
     "test:watch": "./node_modules/.bin/tsc && DATABASE_URL=postgres://localhost/graceshopper_test ./node_modules/.bin/jest --watch --runInBand",
     "test": "./node_modules/.bin/tsc && DATABASE_URL=postgres://localhost/graceshopper_test ./node_modules/.bin/jest --runInBand"
   },
