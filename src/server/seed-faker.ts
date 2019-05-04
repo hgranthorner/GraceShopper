@@ -22,13 +22,43 @@ const fakeUsers = (count: number = 20) => {
   return result
 }
 
+type fakeProducts = (
+  count: number,
+  categories: number
+) => Array<Promise<Product>>
+
+const fakeProducts = (count: number = 20, categories: number = 1) => {
+  const result: Product[] = []
+
+  for (let i = 0; i < count; ++i) {
+    result.push(
+      new Product({
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        description: faker.lorem.sentence(5),
+        imageUrl: faker.image.imageUrl(),
+        quantity: Math.floor(Math.random() * 10000),
+        categoryId: Math.floor(Math.random() * categories) + 1
+      })
+    )
+  }
+  return result
+}
+
+// name: 'Phone',
+// price: 5,
+// description: 'ring ring',
+// imageUrl: '',
+// quantity: 1,
+// categoryId: 1
+
 conn
   .sync({ force: true })
   .then(() => {
     return Promise.all([
-      new User({ name: 'Bailie', age: 10 }).save(),
-      new User({ name: 'Dan', age: 20 }).save(),
-      new User({ name: 'Grant', age: 30 }).save(),
+      new User({ name: 'Bailie', password: 'Ilovemyboos123' }).save(),
+      new User({ name: 'Dan', password: 'dm1031inTheHOUSEEE' }).save(),
+      new User({ name: 'Grant', password: 'myNameG$$$' }).save(),
       [
         ...fakeUsers().map(user => {
           user.save()
@@ -52,11 +82,18 @@ conn
       new Category({ name: 'Cars', description: 'vroom vroom' }).save()
     ])
   })
-  .then(() => {
+  .then((categories: any) => {
     console.log('Completed seeding categories.')
+    return categories
   })
-  .then(() => {
+  .then((categories: any) => {
+    // console.log('categoriesLength:', categories.length)
     return Promise.all([
+      [
+        ...fakeProducts(20, categories.length).map(product => {
+          product.save()
+        })
+      ],
       new Product({
         name: 'Phone',
         price: 5,
