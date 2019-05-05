@@ -5,10 +5,10 @@
   "main": "js/server/server.js",
   "scripts": {
     "client:watch": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json -w &  ./node_modules/.bin/webpack -w",
-    "client:build": "./node_modules/.bin/webpack",
+    "client:build": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json && ./node_modules/.bin/webpack",
     "seed": "node js/server/seed.js",
     "seed-faker": "node js/server/seed-faker.js",
-    "server:watch": "rm -rf ./js && ./node_modules/.bin/tsc -w & ./node_modules/.bin/nodemon -w js/server/server.js",
+    "server:watch": "rm -rf ./js/server && ./node_modules/.bin/tsc -w & ./node_modules/.bin/nodemon -w js/server/server.js",
     "server:build": "./node_modules/.bin/tsc",
     "start:dev": "npm run build-server & npm run webpack",
     "test:watch": "./node_modules/.bin/tsc && DATABASE_URL=postgres://localhost/graceshopper_test ./node_modules/.bin/jest --watch",

@@ -19,5 +19,5 @@
     }
   },
   "include": ["**/*"],
-  "exclude": ["node_modules", "client"]
+  "exclude": ["node_modules", "src/client"]
 }
