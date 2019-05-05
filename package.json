@@ -7,6 +7,7 @@
     "client:watch": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json -w &  ./node_modules/.bin/webpack -w",
     "client:build": "./node_modules/.bin/webpack",
     "seed": "node js/server/seed.js",
+    "seed-faker": "node js/server/seed-faker.js",
     "server:watch": "rm -rf ./js && ./node_modules/.bin/tsc -w & ./node_modules/.bin/nodemon -w js/server/server.js",
     "server:build": "./node_modules/.bin/tsc",
     "start:dev": "npm run build-server & npm run webpack",
@@ -43,14 +44,17 @@
     "webpack-cli": "^3.3.1"
   },
   "dependencies": {
+    "@types/faker": "^4.1.5",
     "axios": "^0.18.0",
     "express": "^4.16.4",
+    "faker": "^4.1.0",
     "pg": "^7.10.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.0.2",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "sequelize": "5.1.0",
     "sequelize-typescript": "^1.0.0-alpha.7"
   }
