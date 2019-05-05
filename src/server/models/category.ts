@@ -28,7 +28,7 @@ class Category extends Model<Category> {
   description!: string
 
   @HasMany(() => Product)
-  product!: Product[]
+  products!: Product[]
 }
 
 export default Category

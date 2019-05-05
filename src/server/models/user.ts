@@ -31,7 +31,7 @@ class User extends Model<User> {
   password!: string
 
   @HasMany(() => Order)
-  order!: Order[]
+  orders!: Order[]
 }
 
 export default User
