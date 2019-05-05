@@ -5,7 +5,7 @@ import store from './store'
 import * as actions from './actions'
 
 export const fetchProducts = () => {
-  return (dispatch: ThunkDispatch) => {
+  return (dispatch: any) => {
     return axios
       .get('/api/products')
       .then(res => res.data)
