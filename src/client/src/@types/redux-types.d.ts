@@ -22,6 +22,8 @@ export interface User {
 }
 
 export interface Category {
+  id: number
   name: string
   description: string
+  products: Array<Product>
 }

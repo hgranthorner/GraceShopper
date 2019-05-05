@@ -1,5 +1,5 @@
 import store from './store'
-import { fetchProducts } from './thunks'
+import { fetchProducts, fetchCategories, fetchProductsByCategory } from './thunks'
 
 export default store
-export { fetchProducts }
+export { fetchProducts, fetchCategories, fetchProductsByCategory }
