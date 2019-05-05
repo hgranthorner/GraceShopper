@@ -8,6 +8,7 @@ export namespace ReduxTypes {
 }
 
 export interface Product {
+  id: number
   name: string
   price: number
   description: string
@@ -17,11 +18,13 @@ export interface Product {
 }
 
 export interface User {
+  id: number
   name: string
   password: string
 }
 
 export interface Category {
+  id: number
   name: string
   description: string
 }
