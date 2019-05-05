@@ -5,51 +5,62 @@ import {
   DataType,
   ForeignKey,
   BelongsTo
-} from "sequelize-typescript";
-import Category from "./category";
+} from 'sequelize-typescript'
+import Category from './category'
+import Order from './order'
 
 @Table({
   timestamps: true,
-  tableName: "products"
+  tableName: 'products'
 })
 class Product extends Model<Product> {
   @Column({
     type: DataType.TEXT,
     allowNull: false
   })
-  name!: string;
+  name!: string
 
   @Column({
     type: DataType.FLOAT,
     allowNull: false
   })
-  price!: number;
+  price!: number
 
   @Column({
     type: DataType.TEXT,
     allowNull: false
   })
-  description!: string;
+  description!: string
 
   @Column({
     type: DataType.TEXT
   })
-  imageUrl!: string;
+  imageUrl!: string
 
   @Column({
     type: DataType.INTEGER
   })
-  quantity!: number;
+  quantity!: number
 
   @ForeignKey(() => Category)
   @Column({
     type: DataType.INTEGER,
     allowNull: false
   })
-  categoryId!: number;
+  categoryId!: number
 
   @BelongsTo(() => Category)
-  category!: Category;
+  category!: Category
+
+  @ForeignKey(() => Order)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true
+  })
+  orderId!: number
+
+  @BelongsTo(() => Order)
+  order!: Order
 }
 
-export default Product;
+export default Product

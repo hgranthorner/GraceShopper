@@ -5,12 +5,12 @@ import {
   DataType,
   HasMany,
   NotEmpty
-} from "sequelize-typescript";
-import Product from "./product";
+} from 'sequelize-typescript'
+import Product from './product'
 
 @Table({
   timestamps: true,
-  tableName: "categories"
+  tableName: 'categories'
 })
 class Category extends Model<Category> {
   @NotEmpty
@@ -18,17 +18,17 @@ class Category extends Model<Category> {
     type: DataType.TEXT,
     allowNull: false
   })
-  name!: string;
+  name!: string
 
   @NotEmpty
   @Column({
     type: DataType.TEXT,
     allowNull: true
   })
-  description!: string;
+  description!: string
 
   @HasMany(() => Product)
-  product!: Product;
+  products!: Product[]
 }
 
-export default Category;
+export default Category
