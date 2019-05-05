@@ -27,12 +27,14 @@ const Sidebar = ({
 
   return (
     <div>
-      <ul>
-        {categories.map(category => (
-          <li key={category.id} onClick={() => fetchProducts(category.id)}>
-            {category.name}
-          </li>
-        ))}
+      <ul className="list-group">
+        {categories
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(category => (
+            <li className="list-group-item" style={{ cursor: 'pointer' }} key={category.id} onClick={() => fetchProducts(category.id)}>
+              {category.name}
+            </li>
+          ))}
       </ul>
     </div>
   )
