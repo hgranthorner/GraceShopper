@@ -5,7 +5,7 @@
   "main": "js/server/server.js",
   "scripts": {
     "client:watch": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json -w &  ./node_modules/.bin/webpack -w",
-    "client:build": "./node_modules/.bin/webpack",
+    "client:build": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json && ./node_modules/.bin/webpack",
     "seed": "node js/server/seed.js",
     "seed-faker": "node js/server/seed-faker.js",
     "server:watch": "rm -rf ./js && ./node_modules/.bin/tsc -w & ./node_modules/.bin/nodemon -w js/server/server.js",
