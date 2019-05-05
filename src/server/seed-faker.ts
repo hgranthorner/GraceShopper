@@ -24,10 +24,7 @@ const fakeUsers = (count: number = 20) => {
 }
 
 // creates fake Products. default quantity of 20 and randomly distributed into categories.
-type fakeProducts = (
-  count: number,
-  categories: number
-) => Array<Promise<Product>>
+type fakeProducts = (count: number, categories: number) => Array<Promise<Product>>
 const fakeProducts = (count: number = 20, categories: number = 1) => {
   const result: Product[] = []
   for (let i = 0; i < count; ++i) {
@@ -60,13 +57,12 @@ const fakeCategories = (count: number = 5) => {
   return result
 }
 
+const categoriesLength = 5
+
 conn
   .sync({ force: true })
   .then(() => {
     return Promise.all([
-      new User({ name: 'Bailie', password: 'Ilovemyboos123' }).save(),
-      new User({ name: 'Dan', password: 'dm1031inTheHOUSEEE' }).save(),
-      new User({ name: 'Grant', password: 'myNameG$$$' }).save(),
       [
         ...fakeUsers().map(user => {
           user.save()
@@ -80,105 +76,24 @@ conn
   .then(() => {
     return Promise.all([
       [
-        ...fakeCategories().map(category => {
+        ...fakeCategories(categoriesLength).map(category => {
           category.save()
         })
-      ],
-      new Category({
-        name: 'Electronics',
-        description: 'sweet zip zaps'
-      }).save(),
-      new Category({
-        name: 'Household',
-        description: 'clean that ish up'
-      }).save(),
-      new Category({ name: 'Cars', description: 'vroom vroom' }).save()
+      ]
     ])
   })
   .then((categories: any) => {
     console.log('Completed seeding categories.')
+    console.log(categories)
     return categories
   })
   .then((categories: any) => {
-    // console.log('categoriesLength:', categories.length)
     return Promise.all([
       [
-        ...fakeProducts(20, categories.length).map(product => {
+        ...fakeProducts(20, categoriesLength).map(product => {
           product.save()
         })
-      ],
-      new Product({
-        name: 'Phone',
-        price: 5,
-        description: 'ring ring',
-        imageUrl: '',
-        quantity: 1,
-        categoryId: 1
-      }).save(),
-      new Product({
-        name: 'TV',
-        price: 10,
-        description: 'zombify your brain for fun',
-        imageUrl: '',
-        quantity: 2,
-        categoryId: 1
-      }).save(),
-      new Product({
-        name: 'Headphones',
-        price: 100,
-        description: 'literally ignore the rest of the world',
-        imageUrl: '',
-        quantity: 3,
-        categoryId: 1
-      }).save(),
-      new Product({
-        name: 'Glad',
-        price: 5,
-        description: 'get glad',
-        imageUrl: '',
-        quantity: 1,
-        categoryId: 2
-      }).save(),
-      new Product({
-        name: 'Vacuum',
-        price: 10,
-        description: 'vroom',
-        imageUrl: '',
-        quantity: 2,
-        categoryId: 2
-      }).save(),
-      new Product({
-        name: 'Sponge',
-        price: 100,
-        description: 'squish squish',
-        imageUrl: '',
-        quantity: 3,
-        categoryId: 2
-      }).save(),
-      new Product({
-        name: 'Audi',
-        price: 1000,
-        description: 'fancy a$$ bish',
-        imageUrl: '',
-        quantity: 3,
-        categoryId: 3
-      }).save(),
-      new Product({
-        name: 'Toyota',
-        price: 100,
-        description: 'tryna drive uber',
-        imageUrl: '',
-        quantity: 3,
-        categoryId: 3
-      }).save(),
-      new Product({
-        name: 'Tesla',
-        price: 100,
-        description: 'I love Musk',
-        imageUrl: '',
-        quantity: 3,
-        categoryId: 3
-      }).save()
+      ]
     ])
   })
   .then(() => {
