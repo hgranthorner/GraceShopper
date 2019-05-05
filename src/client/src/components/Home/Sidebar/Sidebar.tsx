@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Category } from 'src/@types/redux-types'
 import { fetchCategories, fetchProductsByCategory } from '../../../store'
@@ -24,6 +24,7 @@ const Sidebar = ({
   useEffect(() => {
     fetchCategories()
   }, [])
+
   return (
     <div>
       <ul>
