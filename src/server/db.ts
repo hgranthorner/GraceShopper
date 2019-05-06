@@ -8,6 +8,8 @@ const conn = new Sequelize({
   modelPaths: [`${__dirname}/models`]
 })
 
+const x = 1
+
 interface SeqOptsObj {
   force?: boolean
 }
