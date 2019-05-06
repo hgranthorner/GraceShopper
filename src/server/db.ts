@@ -2,9 +2,9 @@ import { Sequelize } from 'sequelize-typescript'
 
 // @ts-ignore
 const conn = new Sequelize({
-  database: process.env.DATABASE_NAME || 'graceshopper',
+  database: process.env.DATABASE_URL || 'graceshopper',
   dialect: 'postgres',
-  logging: process.env.DATABASE_LOGGING || false,
+  logging: false,
   modelPaths: [`${__dirname}/models`]
 })
 
