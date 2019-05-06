@@ -10,7 +10,9 @@ export const fetchProducts = () => {
     return axios
       .get('/api/products')
       .then(res => res.data)
-      .then((products: Array<Product>) => dispatch(actions.getProducts(products)))
+      .then((products: Array<Product>) =>
+        dispatch(actions.getProducts(products))
+      )
   }
 }
 
@@ -19,7 +21,9 @@ export const fetchProductsByCategory = (id: number) => {
     return axios
       .get(`/api/categories/${id}/products`)
       .then(res => res.data)
-      .then((category: Category) => dispatch(actions.getProducts(category.products)))
+      .then((category: Category) =>
+        dispatch(actions.getProducts(category.products))
+      )
   }
 }
 
@@ -28,6 +32,18 @@ export const fetchCategories = () => {
     return axios
       .get('/api/categories')
       .then(res => res.data)
-      .then((categories: Array<Category>) => dispatch(actions.getCategories(categories)))
+      .then((categories: Array<Category>) =>
+        dispatch(actions.getCategories(categories))
+      )
+  }
+}
+
+export const fetchProduct = (id: number) => {
+  // console.log('fetching a product:', id)
+  return (dispatch: any) => {
+    return axios
+      .get(`/api/products/${id}`)
+      .then(res => res.data)
+      .then((product: Product) => dispatch(actions.getProduct(product)))
   }
 }
