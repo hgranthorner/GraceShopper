@@ -15,10 +15,13 @@ const Product = ({ product, fetchProduct, match }: { product: Product; fetchProd
   useEffect(() => {
     fetchProduct(match.params.id)
   })
-  console.log(product, match.params.id)
   return (
     <div className="d-flex justify-content-center">
-      <p>Here goes the product-details.</p>
+      {product.name}
+      <h6>${product.price}, {product.quantity} available</h6>
+      <img alt={'A picture of the product'} src={product.imageUrl} className="col"></img>
+      <p>{product.description}</p>
+
     </div>
   )
 }
