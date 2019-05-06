@@ -1,8 +1,9 @@
 # GraceShopper
 
-To get started, run "npm i" and "createdb graceshopper".
+To get started, run `createdb graceshopper` and then `npm i`.
 
-Run "npm run seed" to put basic data in the db.
+To seed basic faker data, run `npm run seed-faker`.
 
-Then, run either "npm run webpack" for the front end, "npm run build-server" for the back end,
-or "npm run start:dev" to build everything at once.
+- To build everything, run `npm run start:dev`.
+- For front end, run `npm run webpack`. Called in postinstall.
+- For back end, run `npm run server-build`. Called in postinstall.
