@@ -13,6 +13,7 @@ interface SeqOptsObj {
 }
 
 type Sync = (optsObj?: SeqOptsObj) => Promise<Sequelize>
+
 const sync: Sync = (optsObj = {}) => {
   return new Promise((res, rej) => {
     conn
