@@ -24,7 +24,10 @@ const fakeUsers = (count: number = 20) => {
 }
 
 // creates fake Products. default quantity of 20 and randomly distributed into categories.
-type fakeProducts = (count: number, categories: number) => Array<Promise<Product>>
+type fakeProducts = (
+  count: number,
+  categories: number
+) => Array<Promise<Product>>
 const fakeProducts = (count: number = 20, categories: number = 1) => {
   const result: Product[] = []
   for (let i = 0; i < count; ++i) {
@@ -84,7 +87,6 @@ conn
   })
   .then((categories: any) => {
     console.log('Completed seeding categories.')
-    console.log(categories)
     return categories
   })
   .then((categories: any) => {
