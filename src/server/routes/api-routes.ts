@@ -17,6 +17,16 @@ route.get('/products', (req: express.Request, res: express.Response, next: expre
     .then(products => res.send(products))
     .catch(next)
 })
+// get a single product
+route.get('/products/:id', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  Product.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(product => res.send(product))
+    .catch(next)
+})
 // get all categories
 route.get('/categories', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   Category.findAll()

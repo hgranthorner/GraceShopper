@@ -24,7 +24,10 @@ const fakeUsers = (count: number = 20) => {
 }
 
 // creates fake Products. default quantity of 20 and randomly distributed into categories.
-type fakeProducts = (count: number, categories: number) => Array<Promise<Product>>
+type fakeProducts = (
+  count: number,
+  categories: number
+) => Array<Promise<Product>>
 const fakeProducts = (count: number = 20, categories: number = 1) => {
   const result: Product[] = []
   for (let i = 0; i < count; ++i) {
@@ -32,8 +35,8 @@ const fakeProducts = (count: number = 20, categories: number = 1) => {
       new Product({
         name: faker.commerce.productName(),
         price: faker.commerce.price(),
-        description: faker.lorem.sentence(5),
-        imageUrl: faker.image.imageUrl(),
+        description: faker.lorem.sentence(5).concat(),
+        imageUrl: faker.image.image().concat('/', Math.floor(Math.random() * 10).toString()),
         quantity: Math.floor(Math.random() * 10000),
         categoryId: Math.floor(Math.random() * categories) + 1
       })
@@ -84,7 +87,6 @@ conn
   })
   .then((categories: any) => {
     console.log('Completed seeding categories.')
-    console.log(categories)
     return categories
   })
   .then((categories: any) => {
