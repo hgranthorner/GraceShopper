@@ -12,7 +12,13 @@ const mapDispatchToProps = (dispatch: any) => ({
   fetchProducts: () => dispatch(fetchProducts())
 })
 
-const ProductList = ({ products, fetchProducts }: { products: Array<Product>; fetchProducts: any }) => {
+const ProductList = ({
+  products,
+  fetchProducts
+}: {
+  products: Array<Product>
+  fetchProducts: any
+}) => {
   useEffect(() => {
     fetchProducts()
   }, [])
