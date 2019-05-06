@@ -35,8 +35,10 @@ const fakeProducts = (count: number = 20, categories: number = 1) => {
       new Product({
         name: faker.commerce.productName(),
         price: faker.commerce.price(),
-        description: faker.lorem.sentence(5),
-        imageUrl: faker.image.image(),
+        description: faker.lorem.sentence(5).concat(),
+        imageUrl: faker.image
+          .image()
+          .concat('/', Math.floor(Math.random() * 10).toString()),
         quantity: Math.floor(Math.random() * 10000),
         categoryId: Math.floor(Math.random() * categories) + 1
       })
