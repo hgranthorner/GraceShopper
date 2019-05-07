@@ -1,7 +1,7 @@
 import app from './app'
 import conn from './db'
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 conn
   .authenticate()
