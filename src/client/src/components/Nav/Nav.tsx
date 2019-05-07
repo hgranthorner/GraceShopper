@@ -3,7 +3,6 @@ import Search from './Search'
 import { Link } from 'react-router-dom'
 
 export default function Nav() {
-  console.log('hello')
   const links = [
     {
       type: 'Home',
@@ -11,7 +10,7 @@ export default function Nav() {
     },
     {
       type: 'Cart',
-      path: '/users/:id/orders'
+      path: '/orders'
     },
     {
       type: 'Browse by category',
@@ -24,11 +23,11 @@ export default function Nav() {
   ]
   return (
     <div className="d-flex justify-content-around">
-      <h1>Welcome to Bailie'ssss Beauts</h1>
+      <h2>Welcome to Bailie's Beauts</h2>
       <ul>
-        {links.map(link => {
-          ;<Link to={link.path}>{link.type}</Link>
-        })}
+        {links.map(link => (
+          <Link to={link.path}>{link.type}</Link>
+        ))}
       </ul>
       <Search />
     </div>
