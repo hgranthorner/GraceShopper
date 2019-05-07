@@ -3,7 +3,7 @@ import { ThunkDispatch } from 'redux-thunk'
 
 import store from './store'
 import * as actions from './actions'
-import { Product, Category } from 'src/@types/redux-types'
+import { User, Product, Category } from 'src/@types/redux-types'
 
 export const fetchProducts = () => {
   return (dispatch: any) => {
@@ -45,5 +45,20 @@ export const fetchProduct = (id: number) => {
       .get(`/api/products/${id}`)
       .then(res => res.data)
       .then((product: Product) => dispatch(actions.getProduct(product)))
+  }
+}
+
+export const login = ({
+  name,
+  password
+}: {
+  name: string
+  password: string
+}) => {
+  return (dispatch: any) => {
+    return axios
+      .put('/auth/login', { name, password })
+      .then(res => res.data)
+      .then((user: User) => dispatch(actions.getUser(user)))
   }
 }

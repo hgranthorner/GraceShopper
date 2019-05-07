@@ -13,6 +13,10 @@ export default function Nav() {
       path: '/orders'
     },
     {
+      type: 'Login',
+      path: '/login'
+    },
+    {
       type: 'Browse by category',
       path: '/categories'
     },
@@ -26,7 +30,9 @@ export default function Nav() {
       <h2>Welcome to Bailie's Beauts</h2>
       <ul>
         {links.map(link => (
-          <Link to={link.path}>{link.type}</Link>
+          <Link to={link.path} key={link.path}>
+            {link.type}
+          </Link>
         ))}
       </ul>
       <Search />

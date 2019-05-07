@@ -1,6 +1,6 @@
 import React from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Home, Nav, Footer, Product } from './components'
+import { Home, Nav, Footer, Product, Login } from './components'
 
 export default class App extends React.Component {
   render() {
@@ -10,6 +10,7 @@ export default class App extends React.Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/products/:id" exact component={Product} />
+          <Route path="/login" exact component={Login} />
         </Switch>
         <Footer />
       </HashRouter>
