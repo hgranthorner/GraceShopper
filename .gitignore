@@ -1,4 +1,4 @@
 node_modules
 .idea
 js
-bundle
+src/client/dist/bundle.js
