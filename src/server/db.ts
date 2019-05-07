@@ -1,11 +1,15 @@
 import { Sequelize } from 'sequelize-typescript'
 
+const dbName = process.env.DATABASE_URL || 'graceshopper'
+
 // @ts-ignore
-const conn = new Sequelize({
-  database: process.env.DATABASE_URL || 'graceshopper',
+const conn = new Sequelize(dbName, {
   dialect: 'postgres',
   logging: process.env.DATABASE_LOGGING || false,
-  modelPaths: [`${__dirname}/models`]
+  modelPaths: [`${__dirname}/models`],
+  dialectOptions: {
+    ssl: true
+  }
 })
 
 interface SeqOptsObj {
