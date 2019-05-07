@@ -5,7 +5,7 @@
   "main": "js/server/server.js",
   "scripts": {
     "start": "node js/server/server.js",
-    "postinstall": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json && ./node_modules/.bin/tsc && npm run seed-faker && npm run webpack",
+    "postinstall": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json && ./node_modules/.bin/tsc && npm run seed && npm run webpack",
     "webpack": "webpack",
     "webpack:dev": "npm run webpack -- --mode=development --watch",
     "client:watch": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json -w &  ./node_modules/.bin/webpack -w",
