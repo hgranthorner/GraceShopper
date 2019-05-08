@@ -8,9 +8,9 @@ conn
   .sync({ force: true })
   .then(() => {
     return Promise.all([
-      new User({ name: 'Bailie', password: '10' }).save(),
-      new User({ name: 'Dan', password: '20' }).save(),
-      new User({ name: 'Grant', password: '30' }).save()
+      new User({ name: 'Bailie', age: 10 }).save(),
+      new User({ name: 'Dan', age: 20 }).save(),
+      new User({ name: 'Grant', age: 30 }).save()
     ])
   })
   .then(() => {
