@@ -8,6 +8,9 @@ module.exports = {
     path: path.resolve(__dirname, 'src', 'client', 'dist'),
     filename: 'bundle.js'
   },
+  watchOptions: {
+    aggregateTimeout: 1000
+  },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
   }
