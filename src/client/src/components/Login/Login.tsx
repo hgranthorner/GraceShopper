@@ -1,25 +1,38 @@
 import React, { useState } from 'react'
 import { login } from '../../store/thunks'
 import { connect } from 'react-redux'
+import { User } from 'src/@types/redux-types'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    handleSubmit(ev: any) {
+    handleSubmit(userName: string, password: string) {
       const thunk = login({
-        name: ev.target.userName.value,
-        password: ev.target.password.value
+        name: userName,
+        password: password
       })
       dispatch(thunk)
+        .then(() => console.log('logged in!'))
+        .catch(() => console.log('there has been an error'))
     }
   }
 }
 
-const Login = ({ handleSubmit }: { handleSubmit: any }) => {
+const mapStateToProps = ({ user }: { user: User }) => {
+  return { user }
+}
+
+const Login = ({ user, handleSubmit }: { user: User; handleSubmit: any }) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const submitUser = (ev: any) => {
+    ev.preventDefault()
+    handleSubmit(userName, password)
+  }
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      {error ? <div>There has been an error</div> : ''}
+      <form onSubmit={submitUser}>
         <div>
           <label>
             User Name:
@@ -49,6 +62,6 @@ const Login = ({ handleSubmit }: { handleSubmit: any }) => {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login)

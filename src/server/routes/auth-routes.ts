@@ -11,7 +11,8 @@ router.put(
         password: req.body.password
       }
     })
-      .then(user => res.send(user))
+      .then(user => console.log(user))
+      //.then(user => res.send(user))
       .catch(() => res.sendStatus(401))
   }
 )
