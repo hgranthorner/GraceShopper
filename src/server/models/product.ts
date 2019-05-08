@@ -51,16 +51,6 @@ class Product extends Model<Product> {
 
   @BelongsTo(() => Category)
   category!: Category
-
-  @ForeignKey(() => Order)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: true
-  })
-  orderId!: number
-
-  @BelongsTo(() => Order)
-  order!: Order
 }
 
 export default Product
