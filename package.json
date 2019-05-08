@@ -40,6 +40,7 @@
     "@types/sequelize": "^4.27.48",
     "jest": "^24.7.1",
     "nodemon": "^1.18.11",
+    "reflect-metadata": "^0.1.13",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "tsc-watch": "^2.1.2",
@@ -59,7 +60,6 @@
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "reflect-metadata": "^0.1.13",
     "sequelize": "5.1.0",
     "sequelize-typescript": "^1.0.0-alpha.7"
   }
