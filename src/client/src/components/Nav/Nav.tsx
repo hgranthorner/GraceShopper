@@ -1,26 +1,9 @@
 import React from 'react'
 import Search from './Search'
 import { NavLink } from 'react-router-dom'
+import links from './nav-links'
 
 export default function Nav() {
-  const links = [
-    {
-      type: 'Home',
-      path: '/'
-    },
-    {
-      type: 'Cart',
-      path: '/orders'
-    },
-    {
-      type: 'Browse by category',
-      path: '/categories'
-    },
-    {
-      type: 'Browse by product',
-      path: '/products'
-    }
-  ]
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="navbar-brand">Welcome to Bailie's Beauts</div>
