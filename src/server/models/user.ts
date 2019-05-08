@@ -1,4 +1,12 @@
-import { Column, Model, Table, DataType, NotEmpty, HasMany, ForeignKey } from 'sequelize-typescript'
+import {
+  Column,
+  Model,
+  Table,
+  DataType,
+  NotEmpty,
+  HasMany,
+  ForeignKey
+} from 'sequelize-typescript'
 import Order from './order'
 
 @Table({
