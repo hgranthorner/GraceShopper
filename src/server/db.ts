@@ -2,9 +2,11 @@ import { Sequelize } from 'sequelize-typescript'
 
 const dbName = process.env.DATABASE_URL || 'graceshopper'
 
-console.log(`Here's my db name! RIGHT HERE!\n${dbName}`)
-// @ts-ignore
-const conn = new Sequelize(dbName)
+console.log(`Here's my db name! RIGHT HERE!\ndbName`)
+
+const conn = new Sequelize(dbName, {
+  modelPaths: [`${__dirname}/models`]
+})
 
 interface SeqOptsObj {
   force?: boolean
