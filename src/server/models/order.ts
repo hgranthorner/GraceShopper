@@ -5,10 +5,12 @@ import {
   DataType,
   HasMany,
   BelongsTo,
-  ForeignKey
+  ForeignKey,
+  BelongsToMany
 } from 'sequelize-typescript'
 import Product from './product'
 import User from './user'
+import OrdersProducts from './ordersProducts'
 
 @Table({
   timestamps: true,
@@ -25,7 +27,9 @@ class Order extends Model<Order> {
   @BelongsTo(() => User)
   user!: User
 
-
+  @BelongsToMany(() => Product, () => OrdersProducts)
+  products!: Product[];
+  // products:Array<Product & {OrdersProducts:OrdersProducts}>;
 }
 
 export default Order
