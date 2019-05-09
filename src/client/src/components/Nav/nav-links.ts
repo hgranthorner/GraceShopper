@@ -8,10 +8,6 @@ export default [
     path: '/orders'
   },
   {
-    type: 'Browse by category',
-    path: '/categories'
-  },
-  {
     type: 'Browse by product',
     path: '/products'
   }
