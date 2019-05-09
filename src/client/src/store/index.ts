@@ -3,9 +3,9 @@ import {
   fetchProducts,
   fetchCategories,
   fetchProductsByCategory,
-  fetchProduct,
-  fetchLoggedInUser
+  fetchProduct
 } from './thunks'
+import { updateSearchTerm } from './actions'
 
 export default store
 export {
@@ -13,5 +13,5 @@ export {
   fetchCategories,
   fetchProductsByCategory,
   fetchProduct,
-  fetchLoggedInUser
+  updateSearchTerm
 }

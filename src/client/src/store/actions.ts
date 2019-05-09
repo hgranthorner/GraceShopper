@@ -7,6 +7,8 @@ export const GET_USER = Symbol('redux get user')
 export const GET_CATEGORIES = Symbol('redux get categories')
 export const GET_PRODUCT = Symbol('redux get a product')
 
+export const UPDATE_SEARCHTERM = Symbol('redux update searchterm')
+
 // action creators
 
 export const getProducts: ReduxTypes.ActionCreator = (
@@ -23,3 +25,7 @@ export const getProduct: ReduxTypes.ActionCreator = (product: Product) => ({
   type: GET_PRODUCT,
   product
 })
+
+export const updateSearchTerm: ReduxTypes.ActionCreator = (
+  searchTerm: string
+) => ({ type: UPDATE_SEARCHTERM, searchTerm })
