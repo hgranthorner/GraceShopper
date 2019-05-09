@@ -5,6 +5,7 @@ const dbName = process.env.DATABASE_URL || 'postgres://localhost:5432/graceshopp
 console.log(`Here's my db name! RIGHT HERE!\n${dbName}`)
 
 const conn = new Sequelize(dbName, {
+  logging: false,
   modelPaths: [`${__dirname}/models`]
 })
 
