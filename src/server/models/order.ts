@@ -25,8 +25,7 @@ class Order extends Model<Order> {
   @BelongsTo(() => User)
   user!: User
 
-  @HasMany(() => Product)
-  products!: Product[]
+
 }
 
 export default Order
