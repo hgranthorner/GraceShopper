@@ -10,9 +10,7 @@ const mapDispatchToProps = (dispatch: any) => {
         name: userName,
         password: password
       })
-      dispatch(thunk)
-        .then(() => console.log('logged in!'))
-        .catch(() => console.log('there has been an error'))
+      dispatch(thunk).then(() => console.log('logged in!'))
     }
   }
 }
