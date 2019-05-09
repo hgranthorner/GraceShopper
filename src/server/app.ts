@@ -5,6 +5,7 @@
 import express = require('express')
 import * as path from 'path'
 import { apiRoutes, authRoutes } from './routes'
+const session = require('express-session')
 const app: express.Application = express()
 
 app.use(express.json())
