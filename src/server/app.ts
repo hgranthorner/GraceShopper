@@ -15,6 +15,14 @@ app.use(
 app.use('/api', apiRoutes)
 app.use('/auth', authRoutes)
 
+app.use(
+  session({
+    secret: 'this is not a very secure secret...',
+    resave: false,
+    saveUninitialized: false
+  })
+)
+
 app.get('/boo', (req, res, next) => {
   res.send('Heres a sample route')
 })
