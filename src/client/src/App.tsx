@@ -9,6 +9,7 @@ export default class App extends React.Component {
         <Nav />
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/categories/" component={Home} />
           <Route path="/products/:id" exact component={Product} />
         </Switch>
         <Footer />
