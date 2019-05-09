@@ -8,13 +8,13 @@
     "postinstall": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json && ./node_modules/.bin/tsc && npm run seed-faker && npm run webpack",
     "webpack": "webpack",
     "webpack:dev": "npm run webpack -- --mode=development --watch",
-    "client:watch": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json -w &  ./node_modules/.bin/webpack -w",
+    "client:watch": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json -w & ./node_modules/.bin/webpack -w",
     "client:build": "./node_modules/.bin/tsc -p ./src/client/tsconfig.json && ./node_modules/.bin/webpack",
     "seed": "node js/server/seed.js",
     "seed-faker": "node js/server/seed-faker.js",
-    "server:watch": "rm -rf ./js/server && ./node_modules/.bin/tsc -w & ./node_modules/.bin/nodemon -w js/server/server.js --ignore src/client",
+    "server:watch": "./node_modules/.bin/tsc -w & ./node_modules/.bin/nodemon --ignore client --ignore js",
     "server:build": "./node_modules/.bin/tsc",
-    "start:dev": "npm run webpack:dev & DATABASE_URL=postgres://localhost/graceshopper nodemon server.js --ignore src/ --ignore dist/",
+    "start:dev": "npm run client:watch & npm run server:watch",
     "test:watch": "./node_modules/.bin/tsc && DATABASE_URL=postgres://localhost/graceshopper_test ./node_modules/.bin/jest --watch --runInBand",
     "test": "./node_modules/.bin/tsc && DATABASE_URL=postgres://localhost/graceshopper_test ./node_modules/.bin/jest --runInBand --detectOpenHandles"
   },
@@ -40,7 +40,6 @@
     "@types/sequelize": "^4.27.48",
     "jest": "^24.7.1",
     "nodemon": "^1.18.11",
-    "reflect-metadata": "^0.1.13",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "tsc-watch": "^2.1.2",
@@ -60,6 +59,7 @@
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "5.1.0",
     "sequelize-typescript": "^1.0.0-alpha.7"
   }

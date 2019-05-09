@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize-typescript'
 
-// @ts-ignore
-const conn = new Sequelize({
-  database: process.env.DATABASE_NAME || 'graceshopper',
-  dialect: 'postgres',
-  logging: process.env.DATABASE_LOGGING || false,
+const dbName = process.env.DATABASE_URL || 'postgres://localhost:5432/graceshopper'
+
+console.log(`Here's my db name! RIGHT HERE!\n${dbName}`)
+
+const conn = new Sequelize(dbName, {
   modelPaths: [`${__dirname}/models`]
 })
 

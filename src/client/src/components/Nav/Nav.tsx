@@ -1,41 +1,20 @@
 import React from 'react'
 import Search from './Search'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import links from './nav-links'
 
 export default function Nav() {
-  const links = [
-    {
-      type: 'Home',
-      path: '/'
-    },
-    {
-      type: 'Cart',
-      path: '/orders'
-    },
-    {
-      type: 'Login',
-      path: '/login'
-    },
-    {
-      type: 'Browse by category',
-      path: '/categories'
-    },
-    {
-      type: 'Browse by product',
-      path: '/products'
-    }
-  ]
   return (
-    <div className="d-flex justify-content-around">
-      <h2>Welcome to Bailie's Beauts</h2>
-      <ul>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="navbar-brand">Welcome to Bailie's Beauts</div>
+      <div className="navbar-nav">
         {links.map(link => (
-          <Link to={link.path} key={link.path}>
+          <NavLink className="nav-item nav-link" to={link.path}>
             {link.type}
-          </Link>
+          </NavLink>
         ))}
-      </ul>
+      </div>
       <Search />
-    </div>
+    </nav>
   )
 }
