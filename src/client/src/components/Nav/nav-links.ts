@@ -10,5 +10,9 @@ export default [
   {
     type: 'Browse by product',
     path: '/products'
+  },
+  {
+    type: 'Login',
+    path: '/login'
   }
 ]

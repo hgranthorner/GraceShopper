@@ -9,7 +9,7 @@ export default function Nav() {
       <div className="navbar-brand">Welcome to Bailie's Beauts</div>
       <div className="navbar-nav">
         {links.map(link => (
-          <NavLink className="nav-item nav-link" to={link.path}>
+          <NavLink className="nav-item nav-link" to={link.path} key={link.path}>
             {link.type}
           </NavLink>
         ))}
