@@ -48,6 +48,15 @@ export const fetchProduct = (id: number) => {
   }
 }
 
+export const fetchLoggedInUser = () => {
+  return (dispatch: any) => {
+    return axios
+      .get('auth/user')
+      .then(res => res.data)
+      .then((user: User) => dispatch(actions.getUser(user)))
+  }
+}
+
 export const login = ({
   name,
   password

@@ -8,7 +8,14 @@ router.put('/login', (req: express.Request, res: express.Response) => {
       name: req.body.name,
       password: req.body.password
     }
-  }).then(user => (user ? res.send(user) : res.sendStatus(401)))
+  }).then(user => {
+    if (!user) {
+      res.sendStatus(401)
+    } else {
+      req.session!.userId = user.id
+      res.send(user)
+    }
+  })
 })
 
 export default router
