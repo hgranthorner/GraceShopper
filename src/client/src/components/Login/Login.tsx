@@ -1,7 +1,6 @@
-import React, { useState, Dispatch } from 'react'
+import React, { useState } from 'react'
 import { login } from '../../store/thunks'
-import { connect, DispatchProp } from 'react-redux'
-import { User } from 'src/@types/redux-types'
+import { connect } from 'react-redux'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
