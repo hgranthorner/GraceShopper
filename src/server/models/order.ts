@@ -6,11 +6,19 @@ import {
   HasMany,
   BelongsTo,
   ForeignKey,
-  BelongsToMany
+  BelongsToMany,
+  AllowNull
 } from 'sequelize-typescript'
 import Product from './product'
 import User from './user'
 import OrdersProducts from './ordersProducts'
+
+enum Status {
+  Cart = 'cart',
+  Processing = 'processing',
+  Shipped = 'shipped',
+  Delivered = 'delivered'
+}
 
 @Table({
   timestamps: true,
@@ -23,6 +31,12 @@ class Order extends Model<Order> {
     allowNull: false
   })
   userId!: number
+
+  @Column({
+    type: DataType.ENUM('cart', 'processing', 'shipped', 'delivered'),
+    allowNull: false
+  })
+  status!: Status
 
   @BelongsTo(() => User)
   user!: User
