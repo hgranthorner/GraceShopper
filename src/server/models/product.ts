@@ -1,11 +1,4 @@
-import {
-  Column,
-  Model,
-  Table,
-  DataType,
-  ForeignKey,
-  BelongsTo
-} from 'sequelize-typescript'
+import { Column, Model, Table, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript'
 import Category from './category'
 import Order from './order'
 
