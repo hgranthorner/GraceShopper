@@ -10,9 +10,19 @@ export const fetchProducts = () => {
     return axios
       .get('/api/products')
       .then(res => res.data)
-      .then((products: Array<Product>) =>
+      .then((products: Array<Product>) => dispatch(actions.getProducts(products)))
+  }
+}
+
+export const searchProducts = () => {
+  return (dispatch: any) => {
+    return axios
+      .get(`/api/products/search/${store.getState().searchTerm}`)
+      .then(res => res.data)
+      .then((products: Array<Product>) => {
+        console.log('products')
         dispatch(actions.getProducts(products))
-      )
+      })
   }
 }
 
@@ -21,9 +31,7 @@ export const fetchProductsByCategory = (id: number) => {
     return axios
       .get(`/api/categories/${id}/products`)
       .then(res => res.data)
-      .then((category: Category) =>
-        dispatch(actions.getProducts(category.products))
-      )
+      .then((category: Category) => dispatch(actions.getProducts(category.products)))
   }
 }
 
@@ -32,14 +40,11 @@ export const fetchCategories = () => {
     return axios
       .get('/api/categories')
       .then(res => res.data)
-      .then((categories: Array<Category>) =>
-        dispatch(actions.getCategories(categories))
-      )
+      .then((categories: Array<Category>) => dispatch(actions.getCategories(categories)))
   }
 }
 
 export const fetchProduct = (id: number) => {
-  // console.log('fetching a product:', id)
   return (dispatch: any) => {
     return axios
       .get(`/api/products/${id}`)
@@ -57,13 +62,7 @@ export const fetchLoggedInUser = () => {
   }
 }
 
-export const login = ({
-  name,
-  password
-}: {
-  name: string
-  password: string
-}) => {
+export const login = ({ name, password }: { name: string; password: string }) => {
   return (dispatch: any) => {
     return axios
       .put('/auth/login', { name, password })
