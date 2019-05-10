@@ -10,7 +10,8 @@ const initialUser: User = {
 export default (state: User = initialUser, action: ReduxTypes.Action) => {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      state = action.user
+      return state
     default:
       return state
   }

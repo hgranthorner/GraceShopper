@@ -1,15 +1,12 @@
 import { Sequelize } from 'sequelize-typescript'
 
-const dbName = process.env.DATABASE_URL || 'graceshopper'
+const dbName = process.env.DATABASE_URL || 'postgres://localhost:5432/graceshopper'
 
-// @ts-ignore
+console.log(`Here's my db name! RIGHT HERE!\n${dbName}`)
+
 const conn = new Sequelize(dbName, {
-  dialect: 'postgres',
-  logging: process.env.DATABASE_LOGGING || false,
-  modelPaths: [`${__dirname}/models`],
-  dialectOptions: {
-    ssl: true
-  }
+  logging: false,
+  modelPaths: [`${__dirname}/models`]
 })
 
 interface SeqOptsObj {
