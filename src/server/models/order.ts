@@ -43,6 +43,8 @@ class Order extends Model<Order> {
 
   @BelongsToMany(() => Product, () => OrdersProducts)
   products!: Product[];
+  // To access the through-table instance (instanceOf BookAuthor in the upper example) type safely:
+  // the type need to be set up manually.
   // products:Array<Product & {OrdersProducts:OrdersProducts}>;
 }
 
