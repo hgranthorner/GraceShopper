@@ -32,7 +32,7 @@ const Login = ({
   }
 
   return (
-    <div>
+    <div className="mt-5">
       {error ? <div>There has been an error</div> : ''}
       <form onSubmit={submitUser} className="align-self-center">
         <div className="d-flex justify-content-center">
@@ -55,7 +55,7 @@ const Login = ({
             />
           </label>
         </div>
-        <div>
+        <div className="d-flex justify-content-center">
           <button type="submit">Login</button>
         </div>
       </form>
