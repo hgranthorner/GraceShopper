@@ -53,12 +53,9 @@ class Product extends Model<Product> {
 
   @BelongsTo(() => Category)
   category!: Category
-<<<<<<< HEAD
 
   @BelongsToMany(() => Order, () => OrdersProducts)
   orders!: Order[];
-=======
->>>>>>> 733c1f30bc82988afd394b652f104c0ab55e1e67
 }
 
 export default Product
