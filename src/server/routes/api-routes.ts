@@ -48,6 +48,19 @@ route.get('/categories/:id/products', (req: express.Request, res: express.Respon
     .then(category => res.send(category))
     .catch(next)
 })
+// get products with a search term
+route.get('/products/search/:search', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.log('searching')
+  Product.findAll() //
+    .then((products: Array<Product>) => {
+      console.log('found products')
+      const search = req.params.search.toUpperCase()
+      console.log(search)
+      const returnProds = products.filter(product => product.name.toUpperCase().includes(search))
+      res.send(returnProds)
+    })
+})
+
 // get orders associated with a user by id
 route.get('/users/:id/orders', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   User.findOne({
