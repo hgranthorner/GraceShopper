@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { Props } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { Home, Nav, Footer, Product, Login } from './components'
+import { Property } from '@babel/types'
+import { props } from 'bluebird'
 
 export default class App extends React.Component {
   render() {
