@@ -7,8 +7,9 @@ import User from './models/user'
 import Product from './models/product'
 import Category from './models/category'
 import conn from './db'
+import Order, { Status } from './models/order';
 
-// creates fakek users default quantity of 20.
+// creates fake users default quantity of 20.
 type fakeUsers = (count: number) => Array<Promise<User>>
 const fakeUsers = (count: number = 20) => {
   const result: User[] = []
@@ -102,5 +103,15 @@ conn
   })
   .then(() => {
     console.log('Completed seeding products.')
+  })
+  .then(() => {
+    return Promise.all([
+      new Order({ userId: 1, status: Status.Cart })
+    ])
+  })
+  .then((orders) => {
+    orders.map(order => {
+      order.createCart()
+    })
   })
   .catch((e: Error) => console.log(`Failed to seed. Here's why:\n${e}`))

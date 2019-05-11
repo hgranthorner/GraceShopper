@@ -13,7 +13,7 @@ import Product from './product'
 import User from './user'
 import OrdersProducts from './ordersProducts'
 
-enum Status {
+export enum Status {
   Cart = 'cart',
   Processing = 'processing',
   Shipped = 'shipped',
@@ -46,6 +46,10 @@ class Order extends Model<Order> {
   // To access the through-table instance (instanceOf BookAuthor in the upper example) type safely:
   // the type need to be set up manually.
   // products:Array<Product & {OrdersProducts:OrdersProducts}>;
+
+  createCart() {
+    console.log('in instance method')
+  }
 }
 
 export default Order
