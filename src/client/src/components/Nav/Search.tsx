@@ -25,7 +25,7 @@ const Search = ({
   resetSearch: any
 }) => {
   return (
-    <div className={'input-group'}>
+    <div className="input-group ml-5">
       <input
         placeholder="Search Results"
         className="form-control"

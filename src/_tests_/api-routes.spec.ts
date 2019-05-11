@@ -40,8 +40,8 @@ describe('test the root api path', () => {
         ])
       })
       .then(([bar, bazz, order]) => {
-        bar.orderId = order.id
-        bazz.orderId = order.id
+        // bar.orderId = order.id
+        // bazz.orderId = order.id
         bar.save()
         bazz.save()
       })

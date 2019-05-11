@@ -1,9 +1,10 @@
 import React from 'react'
 import Search from './Search'
-import { NavLink } from 'react-router-dom'
 import { noUserLoggedInNav, userLoggedInNav } from './nav-links'
 import { User } from 'src/@types/redux-types'
 import { connect } from 'react-redux'
+import { NavLink, Link } from 'react-router-dom'
+import { fetchProducts } from '../../store'
 
 const mapStateToProps = ({ user }: { user: User }) => {
   return { user }
@@ -11,8 +12,12 @@ const mapStateToProps = ({ user }: { user: User }) => {
 
 const Nav = ({ user }: { user: User }) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="navbar-brand">Welcome to Bailie's Beauts</div>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
+      <div className="navbar-brand">
+        <Link to="/" className="nav-item nav-link" onClick={fetchProducts}>
+          Welcome to Bailie's Beauts
+        </Link>
+      </div>
       <div className="navbar-nav">
         {user.name !== ''
           ? userLoggedInNav.map((link: any) => (
@@ -39,4 +44,7 @@ const Nav = ({ user }: { user: User }) => {
   )
 }
 
-export default connect(mapStateToProps)(Nav)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Nav)

@@ -1,6 +1,15 @@
-import { Column, Model, Table, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript'
+import {
+  Column,
+  Model,
+  Table,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+  BelongsToMany
+} from 'sequelize-typescript'
 import Category from './category'
 import Order from './order'
+import OrdersProducts from './ordersProducts'
 
 @Table({
   timestamps: true,
@@ -45,15 +54,8 @@ class Product extends Model<Product> {
   @BelongsTo(() => Category)
   category!: Category
 
-  @ForeignKey(() => Order)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: true
-  })
-  orderId!: number
-
-  @BelongsTo(() => Order)
-  order!: Order
+  @BelongsToMany(() => Order, () => OrdersProducts)
+  orders!: Order[];
 }
 
 export default Product
