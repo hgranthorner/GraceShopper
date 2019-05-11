@@ -1,5 +1,7 @@
 import express = require('express')
 import User from '../models/user'
+import Order from '../models/order'
+import Product from '../models/product'
 const router = express.Router()
 
 router.put(
@@ -15,8 +17,11 @@ router.put(
         if (!user) {
           res.sendStatus(401)
         } else {
-          //req.session!.userId = user.id
-          res.send(user)
+          req.session!.userId = user.id
+          req.session!.order.forEach((product: Product) => {
+            Order.AddToCart(product, req.session!.userId)
+          })
+          res.sendStatus(200).send(user)
         }
       })
       .catch(next)
