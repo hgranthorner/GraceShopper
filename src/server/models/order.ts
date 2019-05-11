@@ -47,9 +47,32 @@ class Order extends Model<Order> {
   // the type need to be set up manually.
   // products:Array<Product & {OrdersProducts:OrdersProducts}>;
 
-  // createCart() {
-  //   console.log('in instance method')
-  // }
+  static addToCart(userId: number, productId: number) {
+    // 1. no orders: make a first cart
+    // 2. there are orders, but no cart: make a cart
+    // 3. there is a cart, find one
+    Order.findAll({
+      where: {
+        userId: userId,
+        status: Status.Cart
+      }
+    })
+      .then(async (orders) => {
+        let cart
+        if (orders.length === 0) {
+          cart = await Order.create({ userId, status: Status.Cart })
+        } else {
+          cart = orders.find(order => order.status === Status.Cart)
+          if (!cart) {
+            cart = await Order.create({ userId, status: Status.Cart })
+          }
+        }
+        return cart
+      })
+      .then(cart => OrdersProducts.create({ orderId: cart.id, productId: productId }))
+      .catch((e: Error) => console.log(`Failed to add to cart. \n${e}`))
+  }
 }
+
 
 export default Order

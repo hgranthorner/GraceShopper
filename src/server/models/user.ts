@@ -32,10 +32,6 @@ class User extends Model<User> {
 
   @HasMany(() => Order)
   orders!: Order[]
-
-  createCart() {
-    Order.create({ userId: this.id, status: Status.Cart })
-  }
 }
 
 export default User
