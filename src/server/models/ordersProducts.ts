@@ -3,6 +3,7 @@ import {
     Model,
     Table,
     ForeignKey,
+    DataType
 } from 'sequelize-typescript'
 import Product from './product'
 import Order from './order';
@@ -19,6 +20,12 @@ class OrdersProducts extends Model<OrdersProducts> {
     @ForeignKey(() => Order)
     @Column
     orderId!: number;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    quantity!: number
 }
 
 export default OrdersProducts
