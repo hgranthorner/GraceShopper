@@ -5,8 +5,6 @@ import { createOrder, loggedInAddToOrder } from '../../../store'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ user, order }: { user: User; order: Order }) => {
-  console.log('user state:', user)
-  console.log('order state', order)
   return { user, order }
 }
 

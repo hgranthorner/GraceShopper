@@ -22,7 +22,6 @@ export const searchProducts = () => {
       .get(`/api/products/search/${store.getState().searchTerm}`)
       .then(res => res.data)
       .then((products: Array<Product>) => {
-        console.log('products')
         dispatch(actions.getProducts(products))
       })
   }

@@ -50,19 +50,21 @@ class Order extends Model<Order> {
     // 1. no orders: make a first cart
     // 2. there are orders, but no cart: make a cart
     // 3. there is a cart, find one
-    Order.findAll({
+    return Order.findAll({
       where: {
-        userId: userId,
+        userId,
         status: Status.Cart
       }
     })
       .then(async orders => {
         let cart
         if (orders.length === 0) {
+          console.log('cannot find order')
           cart = await Order.create({ userId, status: Status.Cart })
         } else {
           cart = orders.find(order => order.status === Status.Cart)
           if (!cart) {
+            console.log('cannot find cart')
             cart = await Order.create({ userId, status: Status.Cart })
           }
         }

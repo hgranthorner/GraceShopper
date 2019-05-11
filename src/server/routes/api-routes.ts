@@ -68,12 +68,9 @@ route.get(
 route.get(
   '/products/search/:search',
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log('searching')
     Product.findAll() //
       .then((products: Array<Product>) => {
-        console.log('found products')
         const search = req.params.search.toUpperCase()
-        console.log(search)
         const returnProds = products.filter(product =>
           product.name.toUpperCase().includes(search)
         )
@@ -159,25 +156,14 @@ route.post(
       req.session!.order = []
     }
     req.session!.order.push(req.body)
-    console.log(req.session)
     res.sendStatus(200)
     next()
   }
 )
 
-route.post(
-  '/users/:id/orders',
-  async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
-    const order = await Order.findOne({ where: { userId: req.params.id } })
-    const product = await Product.findOne({ where: { id: req.body.id } })
-    product!.update({ orderId: order!.id })
-    product!.save()
-    res.send(order)
-  }
-)
+route.post('/users/:id/orders', async (req, res, next) => {
+  const order = await Order.addToCart(req.params.id, req.body.id)
+  res.send(order)
+})
 
 export default route

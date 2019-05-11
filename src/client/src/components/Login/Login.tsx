@@ -4,13 +4,8 @@ import { connect } from 'react-redux'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    handleSubmit(userName: string, password: string) {
-      const thunk = login({
-        name: userName,
-        password: password
-      })
-      dispatch(thunk).then(() => console.log('logged in!'))
-    }
+    handleSubmit: (name: string, password: string) =>
+      dispatch(login({ name, password }))
   }
 }
 
@@ -27,7 +22,9 @@ const Login = ({
   const submitUser = (ev: any) => {
     ev.preventDefault()
     handleSubmit(userName, password)
-    history.push('/')
+      .then(() => console.log('logged in'))
+      .then(() => history.push('/'))
+      .catch((e: Error) => console.log(`Failed to log in.\n${e}`))
   }
 
   return (
