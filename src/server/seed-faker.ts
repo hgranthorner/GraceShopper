@@ -102,11 +102,6 @@ conn
   .then(() => {
     console.log('Completed seeding products.')
   })
-  // .then(() => {
-  //   return Order.create({ userId: 2, status: Status.Delivered })
-  // })
-  // 
-  .then(() => User.findByPk(1))
-  // create a cart if necessary and add a product to cart
+  // add a product to cart
   .then(() => Order.addToCart(1, 2))
   .catch((e: Error) => console.log(`Failed to seed. Here's why:\n${e}`))
