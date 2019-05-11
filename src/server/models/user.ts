@@ -7,7 +7,7 @@ import {
   HasMany,
   ForeignKey
 } from 'sequelize-typescript'
-import Order from './order'
+import Order, { Status } from './order'
 
 @Table({
   timestamps: true,
@@ -32,6 +32,10 @@ class User extends Model<User> {
 
   @HasMany(() => Order)
   orders!: Order[]
+
+  createCart() {
+    Order.create({ userId: this.id, status: Status.Cart })
+  }
 }
 
 export default User

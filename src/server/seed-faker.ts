@@ -69,13 +69,18 @@ conn
   .sync({ force: true })
   .then(() => {
     return Promise.all([
-      [
-        ...fakeUsers().map(user => {
-          user.save()
-        })
-      ]
+      ...fakeUsers().map(user => {
+        user.save()
+      })
     ])
   })
+  // 
+  .then(() => {
+    return User.findByPk(1).then(user => {
+      if (user) return (user.createCart())
+    })
+  })
+  // 
   .then(() => {
     console.log('Completed seeding users.')
   })
@@ -104,14 +109,7 @@ conn
   .then(() => {
     console.log('Completed seeding products.')
   })
-  .then(() => {
-    return Promise.all([
-      new Order({ userId: 1, status: Status.Cart })
-    ])
-  })
-  .then((orders) => {
-    orders.map(order => {
-      order.createCart()
-    })
-  })
+  // .then(() => {
+  //   return Order.create({ userId: 2, status: Status.Delivered })
+  // })
   .catch((e: Error) => console.log(`Failed to seed. Here's why:\n${e}`))

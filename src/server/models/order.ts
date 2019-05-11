@@ -47,9 +47,9 @@ class Order extends Model<Order> {
   // the type need to be set up manually.
   // products:Array<Product & {OrdersProducts:OrdersProducts}>;
 
-  createCart() {
-    console.log('in instance method')
-  }
+  // createCart() {
+  //   console.log('in instance method')
+  // }
 }
 
 export default Order
