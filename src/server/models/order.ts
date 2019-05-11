@@ -16,14 +16,14 @@ import User from './user'
 })
 class Order extends Model<Order> {
   @Column({
-    type: DataType.BOOLEAN
+    type: DataType.BOOLEAN,
+    allowNull: false
   })
   isCart!: boolean
 
   @ForeignKey(() => User)
   @Column({
-    type: DataType.INTEGER,
-    allowNull: false
+    type: DataType.INTEGER
   })
   userId!: number
 
