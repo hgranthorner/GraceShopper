@@ -25,12 +25,6 @@ export enum Status {
   tableName: 'orders'
 })
 class Order extends Model<Order> {
-  @Column({
-    type: DataType.BOOLEAN,
-    allowNull: false
-  })
-  isCart!: boolean
-
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER

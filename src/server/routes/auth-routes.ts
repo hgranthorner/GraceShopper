@@ -19,7 +19,7 @@ router.put(
         } else {
           req.session!.userId = user.id
           req.session!.order.forEach((product: Product) => {
-            Order.AddToCart(product, req.session!.userId)
+            Order.addToCart(product.id, req.session!.userId)
           })
           res.sendStatus(200).send(user)
         }

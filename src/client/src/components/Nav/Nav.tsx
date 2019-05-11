@@ -10,6 +10,10 @@ const mapStateToProps = ({ user }: { user: User }) => {
   return { user }
 }
 
+const mapDispatchToProps = (dispatch: any) => ({
+  fetchProducts: () => dispatch(fetchProducts())
+})
+
 const Nav = ({ user }: { user: User }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
