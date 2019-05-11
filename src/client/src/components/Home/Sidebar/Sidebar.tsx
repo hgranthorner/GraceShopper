@@ -42,8 +42,8 @@ const Sidebar = ({
           .map(category => (
             <NavLink
               to={`/categories/${category.id}`}
-              activeClassName="active-sidebar"
-              className="list-group-item"
+              activeClassName="active"
+              className="list-group-item list-group-item-action"
               style={{ cursor: 'pointer' }}
               key={category.id}
               onClick={() => setCategoryId(category.id)}

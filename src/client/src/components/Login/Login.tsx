@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { login } from '../../store/thunks'
 import { connect } from 'react-redux'
-import { User } from 'src/@types/redux-types'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -15,23 +14,27 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-const mapStateToProps = ({ user }: { user: User }) => {
-  return { user }
-}
-
-const Login = ({ user, handleSubmit }: { user: User; handleSubmit: any }) => {
+const Login = ({
+  handleSubmit,
+  history
+}: {
+  handleSubmit: any
+  history: any
+}) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const submitUser = (ev: any) => {
     ev.preventDefault()
     handleSubmit(userName, password)
+    history.push('/')
   }
+
   return (
-    <div>
+    <div className="mt-5">
       {error ? <div>There has been an error</div> : ''}
-      <form onSubmit={submitUser}>
-        <div>
+      <form onSubmit={submitUser} className="align-self-center">
+        <div className="d-flex justify-content-center">
           <label>
             User Name:
             <input
@@ -41,7 +44,7 @@ const Login = ({ user, handleSubmit }: { user: User; handleSubmit: any }) => {
             />
           </label>
         </div>
-        <div>
+        <div className="d-flex justify-content-center">
           <label>
             Password:
             <input
@@ -51,7 +54,7 @@ const Login = ({ user, handleSubmit }: { user: User; handleSubmit: any }) => {
             />
           </label>
         </div>
-        <div>
+        <div className="d-flex justify-content-center">
           <button type="submit">Login</button>
         </div>
       </form>
@@ -60,6 +63,6 @@ const Login = ({ user, handleSubmit }: { user: User; handleSubmit: any }) => {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Login)
