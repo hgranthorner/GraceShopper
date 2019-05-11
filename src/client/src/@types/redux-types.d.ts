@@ -29,3 +29,9 @@ export interface Category {
   description: string
   products: Array<Product>
 }
+
+export interface Order {
+  id: number
+  isCart: boolean
+  userId: number
+}
