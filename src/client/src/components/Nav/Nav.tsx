@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const Nav = ({ user, fetchProducts }: { user: User; fetchProducts: any }) => {
   console.log('user on state: ', user)
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
       <div className="navbar-brand">
         <Link to="/" className="nav-item nav-link" onClick={fetchProducts}>
           Welcome to Bailie's Beauts
