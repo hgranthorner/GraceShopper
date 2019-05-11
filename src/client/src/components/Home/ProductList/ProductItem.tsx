@@ -7,7 +7,7 @@ const ProductItem = ({ product }: { product: Product }) => {
     return
   }
   return (
-    <div>
+    <div className="border mb-2">
       <div className="row">
         <div className="col">
           <Link to={`/products/${product.id}`}>
