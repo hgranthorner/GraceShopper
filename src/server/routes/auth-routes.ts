@@ -5,7 +5,6 @@ import Product from '../models/product'
 const router = express.Router()
 
 router.put('/login', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.log('request body', req.body)
   User.findOne({
     where: {
       name: req.body.name,
@@ -13,29 +12,28 @@ router.put('/login', (req: express.Request, res: express.Response, next: express
     }
   })
     .then(async user => {
-      console.log('this is the user', user!.get())
-      if (!user) {
-        res.sendStatus(401)
-      }
-      if (req.session!.order) {
-        console.log('preparing to create orders')
-        console.log(`Here's the userId: `, user!.id)
-        const userId: number = user!.id
-        const order = req.session!.order
-        Order.addToCart(userId, order[0].id)
-          .then(() => console.log('created first order'))
-          .then(() => {
+      try {
+        if (!user) {
+          res.sendStatus(401)
+        }
+        if (req.session!.order) {
+          const userId: number = user!.id
+          const order = req.session!.order
+          await Order.addToCart(userId, order[0].id)
+          await (async function loop() {
             for (let i = 1; i < order.length; i++) {
-              Order.addToCart(userId, order[i].id) //
-                .then(() => console.log(`Added order #${i}`))
+              await Order.addToCart(userId, order[i].id)
             }
-          })
-          .then(() => (req.session!.order = []))
-          .then(() => console.log(`req.session after loading orders\n${req.session!.toString()}`))
-          .then(() => res.send(user))
-          .catch((e: Error) => console.log(`Some error happened\n${e}`))
+          })()
+          delete req.session!.order
+        }
+        res.send(user)
+      } catch (e) {
+        console.log('deleting order from req.session')
+        delete req.session!.order
+        console.log(e)
+        next()
       }
-      res.send(user)
     })
     .catch(next)
 })
