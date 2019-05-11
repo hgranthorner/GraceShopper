@@ -1,8 +1,23 @@
 import React from 'react'
-import { Product } from 'src/@types/redux-types'
+import { User, Product, Order } from 'src/@types/redux-types'
 import { Link } from 'react-router-dom'
+import { createOrder, loggedInAddToOrder } from '../../../store'
+import { connect } from 'react-redux'
 
-const ProductItem = ({ product }: { product: Product }) => {
+const mapStateToProps = ({ user, order }: { user: User; order: Order }) => {
+  return { user, order }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    userAddToOrder: (userId: number, product: Product) => dispatch(loggedInAddToOrder(userId, product))
+  }
+}
+
+const ProductItem = ({ user, order, product, userAddToOrder }: { user: User; order: Order; product: Product; userAddToOrder: any }) => {
+  const deleteProduct = () => {
+    return
+  }
   return (
     <div className="border mb-2">
       <div className="row">
@@ -25,6 +40,12 @@ const ProductItem = ({ product }: { product: Product }) => {
               </div>
               <div className="col">
                 <div className="btn-group">
+                  <button
+                    className={'btn btn-success'}
+                    onClick={() => (user.id === -1 ? createOrder(product) : userAddToOrder(user.id, product))}
+                  >
+                    +Cart
+                  </button>
                   <Link to={`/products/update/${product.id}`}>
                     <button className="btn btn-info" type="button">
                       Update
@@ -43,4 +64,7 @@ const ProductItem = ({ product }: { product: Product }) => {
   )
 }
 
-export default ProductItem
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductItem)
