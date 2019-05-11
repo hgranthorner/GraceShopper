@@ -7,7 +7,7 @@ import {
   HasMany,
   ForeignKey
 } from 'sequelize-typescript'
-import Order from './order'
+import Order, { Status } from './order'
 
 @Table({
   timestamps: true,
