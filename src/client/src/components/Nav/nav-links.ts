@@ -8,10 +8,6 @@ export const noUserLoggedInNav = [
     path: '/orders'
   },
   {
-    type: 'Browse by product',
-    path: '/products'
-  },
-  {
     type: 'Login',
     path: '/login'
   }
@@ -25,10 +21,6 @@ export const userLoggedInNav = [
   {
     type: 'Cart',
     path: '/orders'
-  },
-  {
-    type: 'Browse by product',
-    path: '/products'
   },
   {
     type: 'Account',
