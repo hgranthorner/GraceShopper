@@ -10,7 +10,6 @@ const mapStateToProps = ({ user }: { user: User }) => {
 }
 
 const Nav = ({ user }: { user: User }) => {
-  console.log('user on state: ', user)
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="navbar-brand">Welcome to Bailie's Beauts</div>
