@@ -38,15 +38,13 @@ const ProductItem = ({ user, order, product, add }: { user: User; order: Order; 
             </div>
           </div>
           <div className="row">
-            <div className="d-flex flex-row align-items-center">
-              <div className="col">
-                <p>{product.description}</p>
-              </div>
-              <div className="col">
-                <button className="btn btn-raised btn-success" onClick={() => add(user.id, product)}>
-                  +Cart
-                </button>
-              </div>
+            <div className="col d-flex justify-content-center">
+              <p>{product.description}</p>
+            </div>
+            <div className="col d-flex justify-content-center align-items-center">
+              <button className="btn btn-raised btn-success" onClick={() => add(user.id, product)}>
+                +Cart
+              </button>
             </div>
           </div>
         </div>

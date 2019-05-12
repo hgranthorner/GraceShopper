@@ -5,15 +5,14 @@ import store from './store'
 import * as actions from './actions'
 import { User, Product, Category, Order } from 'src/@types/redux-types'
 import { initialUser } from './user-reducer'
+import { Dispatch } from 'redux'
 
 export const fetchProducts = () => {
   return (dispatch: any) => {
     return axios
       .get('/api/products')
       .then(res => res.data)
-      .then((products: Array<Product>) =>
-        dispatch(actions.getProducts(products))
-      )
+      .then((products: Array<Product>) => dispatch(actions.getProducts(products)))
   }
 }
 
@@ -33,9 +32,7 @@ export const fetchProductsByCategory = (id: number) => {
     return axios
       .get(`/api/categories/${id}/products`)
       .then(res => res.data)
-      .then((category: Category) =>
-        dispatch(actions.getProducts(category.products))
-      )
+      .then((category: Category) => dispatch(actions.getProducts(category.products)))
   }
 }
 
@@ -44,9 +41,7 @@ export const fetchCategories = () => {
     return axios
       .get('/api/categories')
       .then(res => res.data)
-      .then((categories: Array<Category>) =>
-        dispatch(actions.getCategories(categories))
-      )
+      .then((categories: Array<Category>) => dispatch(actions.getCategories(categories)))
   }
 }
 
@@ -83,6 +78,15 @@ export const checkIfLoggedIn = () => {
   }
 }
 
+export const fetchOrder = (orderId: number) => {
+  return (dispatch: any) => {
+    axios
+      .get(`/api/users/${store.getState().user.id}/orders/${orderId}`)
+      .then(res => res.data)
+      .then((order: Order) => dispatch(actions.getOrder(order)))
+  }
+}
+
 export const fetchOrders = () => {
   return (dispatch: any) => {
     axios
@@ -92,13 +96,7 @@ export const fetchOrders = () => {
   }
 }
 
-export const login = ({
-  name,
-  password
-}: {
-  name: string
-  password: string
-}) => {
+export const login = ({ name, password }: { name: string; password: string }) => {
   return (dispatch: any) => {
     return axios
       .put('/auth/login', { name, password })
@@ -109,9 +107,7 @@ export const login = ({
 
 export const logout = () => {
   return (dispatch: any) => {
-    return axios
-      .delete('/auth')
-      .then(() => dispatch(actions.getUser(initialUser)))
+    return axios.delete('/auth').then(() => dispatch(actions.getUser(initialUser)))
   }
 }
 
@@ -125,13 +121,16 @@ export const addItemToCart = (userId: number, product: Product) => {
   }
 }
 
-export const createNewUser = ({
-  name,
-  password
-}: {
-  name: string
-  password: string
-}) => {
+export const checkoutOrder = (orderId: number) => {
+  return (dispatch: Dispatch) => {
+    return axios
+      .put(`/api/users/${store.getState().user.id}/orders/${orderId}`, { orderId })
+      .then(res => res.data)
+      .then(() => dispatch(actions.getCartCount(0)))
+  }
+}
+
+export const createNewUser = ({ name, password }: { name: string; password: string }) => {
   return (dispatch: any) => {
     return axios
       .post('/api/users', { name, password })

@@ -8,10 +8,11 @@ import products from './products-reducer'
 import product from './product-reducer'
 import searchTerm from './searchTerm-reducer'
 import orders from './orders-reducer'
+import order from './order-reducer'
 import cartCount from './cart-count-reducer'
 
 const store = createStore(
-  combineReducers({ user, categories, products, product, searchTerm, orders, cartCount }),
+  combineReducers({ user, categories, products, product, searchTerm, orders, cartCount, order }),
   applyMiddleware(thunkMiddleware)
 )
 
