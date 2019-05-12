@@ -6,16 +6,16 @@ import {
     DataType
 } from 'sequelize-typescript'
 import Product from './product'
-import Order from './order';
+import Order from './order'
 
 @Table({
     timestamps: true,
-    tableName: 'ordersProducts'
+    tableName: 'orders_products'
 })
 class OrdersProducts extends Model<OrdersProducts> {
     @ForeignKey(() => Product)
     @Column
-    productId!: number;
+    productId!: number
 
     @ForeignKey(() => Order)
     @Column

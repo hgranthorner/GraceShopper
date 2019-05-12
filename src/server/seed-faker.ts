@@ -7,7 +7,7 @@ import User from './models/user'
 import Product from './models/product'
 import Category from './models/category'
 import conn from './db'
-import Order, { Status } from './models/order';
+import Order, { Status } from './models/order'
 
 // creates fake users default quantity of 20.
 type fakeUsers = (count: number) => Array<Promise<User>>
@@ -21,14 +21,12 @@ const fakeUsers = (count: number = 20) => {
       })
     )
   }
+  result.push(new User({ name: 'a', password: 'a' }))
   return result
 }
 
 // creates fake Products. default quantity of 20 and randomly distributed into categories.
-type fakeProducts = (
-  count: number,
-  categories: number
-) => Array<Promise<Product>>
+type fakeProducts = (count: number, categories: number) => Array<Promise<Product>>
 const fakeProducts = (count: number = 20, categories: number = 1) => {
   const result: Product[] = []
   for (let i = 0; i < count; ++i) {
@@ -37,9 +35,7 @@ const fakeProducts = (count: number = 20, categories: number = 1) => {
         name: faker.commerce.productName(),
         price: faker.commerce.price(),
         description: faker.lorem.sentence(5).concat(),
-        imageUrl: faker.image
-          .image()
-          .concat('/', Math.floor(Math.random() * 10).toString()),
+        imageUrl: faker.image.image().concat('/', Math.floor(Math.random() * 10).toString()),
         quantity: Math.floor(Math.random() * 10000),
         categoryId: Math.floor(Math.random() * categories) + 1
       })

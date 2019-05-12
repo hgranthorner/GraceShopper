@@ -14,8 +14,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   fetchProducts: () => dispatch(fetchProducts())
 })
 
-const Nav = ({ user, fetchProducts }: { user: User; fetchProducts: any }) => {
-  console.log('user on state: ', user)
+const Nav = ({ user }: { user: User }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
       <div className="navbar-brand">
@@ -26,12 +25,20 @@ const Nav = ({ user, fetchProducts }: { user: User; fetchProducts: any }) => {
       <div className="navbar-nav">
         {user.name !== ''
           ? userLoggedInNav.map((link: any) => (
-              <NavLink className="nav-item nav-link" to={link.path} key={link.path}>
+              <NavLink
+                className="nav-item nav-link"
+                to={link.path}
+                key={link.path}
+              >
                 {link.type}
               </NavLink>
             ))
           : noUserLoggedInNav.map((link: any) => (
-              <NavLink className="nav-item nav-link" to={link.path} key={link.path}>
+              <NavLink
+                className="nav-item nav-link"
+                to={link.path}
+                key={link.path}
+              >
                 {link.type}
               </NavLink>
             ))}
