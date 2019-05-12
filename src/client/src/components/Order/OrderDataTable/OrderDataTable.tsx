@@ -15,14 +15,14 @@ const OrderDataTable = ({ order }: { order: Product[] }) => {
       <tbody>
         {order.length > 0
           ? order.map((item: Product) => (
-              <tr>
+              <tr key={item.id}>
                 <th>{item.id}</th>
                 <th>{item.name}</th>
                 <th>{item.price}</th>
                 <th>{item.quantity}</th>
               </tr>
             ))
-          : ''}
+          : null}
       </tbody>
     </table>
   )
