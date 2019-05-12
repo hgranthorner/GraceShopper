@@ -4,18 +4,11 @@ import { connect } from 'react-redux'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    handleSubmit: (name: string, password: string) =>
-      dispatch(login({ name, password }))
+    handleSubmit: (name: string, password: string) => dispatch(login({ name, password }))
   }
 }
 
-const Login = ({
-  handleSubmit,
-  history
-}: {
-  handleSubmit: any
-  history: any
-}) => {
+const Login = ({ handleSubmit, history }: { handleSubmit: any; history: any }) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -28,31 +21,31 @@ const Login = ({
   }
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 d-flex justify-content-center">
       {error ? <div>There has been an error</div> : ''}
-      <form onSubmit={submitUser} className="align-self-center">
+      <form onSubmit={submitUser} className="form-login align-self-center">
         <div className="d-flex justify-content-center">
-          <label>
-            User Name:
-            <input
-              type="text"
-              value={userName}
-              onChange={ev => setUserName(ev.target.value)}
-            />
-          </label>
+          <input
+            type="text"
+            value={userName}
+            onChange={ev => setUserName(ev.target.value)}
+            className="form-control"
+            placeholder="Username"
+          />
+        </div>
+        <div className="d-flex justify-content-center mt-2">
+          <input
+            type="text"
+            value={password}
+            onChange={ev => setPassword(ev.target.value)}
+            className="form-control"
+            placeholder="Password"
+          />
         </div>
         <div className="d-flex justify-content-center">
-          <label>
-            Password:
-            <input
-              type="text"
-              value={password}
-              onChange={ev => setPassword(ev.target.value)}
-            />
-          </label>
-        </div>
-        <div className="d-flex justify-content-center">
-          <button type="submit">Login</button>
+          <button type="submit" className="btn btn-raised btn-success btn-lg mt-5">
+            Login
+          </button>
         </div>
       </form>
     </div>
