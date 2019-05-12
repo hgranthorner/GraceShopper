@@ -7,6 +7,10 @@ export namespace ReduxTypes {
   export type ActionCreator = (...args: any) => Action
 }
 
+export interface OrdersProduct {
+  quantity: number
+}
+
 export interface Product {
   id: number
   name: string
@@ -15,6 +19,7 @@ export interface Product {
   imageUrl: string
   quantity: number
   categoryId: number
+  OrdersProducts: OrdersProduct
 }
 
 export interface User {

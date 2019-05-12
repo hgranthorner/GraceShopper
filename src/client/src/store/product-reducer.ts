@@ -9,6 +9,9 @@ const initialProduct: Product = {
   quantity: -1,
   imageUrl: '',
   categoryId: -1,
+  OrdersProducts: {
+    quantity: -1
+  }
 }
 
 export default (state: Product = initialProduct, action: ReduxTypes.Action) => {
