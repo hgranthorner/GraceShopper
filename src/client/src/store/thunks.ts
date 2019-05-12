@@ -77,6 +77,17 @@ export const checkIfLoggedIn = () => {
   }
 }
 
+export const fetchOrders = () => {
+  return (dispatch: any) => {
+    axios
+      .get(`/api/users/${store.getState().user.id}/orders`)
+      .then(res => res.data)
+      .then((data: any) => {
+        console.log(data)
+      })
+  }
+}
+
 export const login = ({ name, password }: { name: string; password: string }) => {
   return (dispatch: any) => {
     return axios

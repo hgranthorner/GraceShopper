@@ -7,6 +7,7 @@ export const GET_USER = Symbol('redux get user')
 export const GET_CATEGORIES = Symbol('redux get categories')
 export const GET_PRODUCT = Symbol('redux get a product')
 export const GET_ORDER = Symbol('redux get order')
+export const GET_ORDERS = Symbol('redux get orders')
 export const GET_CART_COUNT = Symbol('redux get cart count')
 export const UPDATE_SEARCHTERM = Symbol('redux update searchterm')
 
@@ -25,6 +26,10 @@ export const getProduct: ReduxTypes.ActionCreator = (product: Product) => ({
 export const getOrder: ReduxTypes.ActionCreator = (order: Order) => ({
   type: GET_ORDER,
   order
+})
+export const getOrders: ReduxTypes.ActionCreator = (orders: Array<Order>) => ({
+  type: GET_ORDER,
+  orders
 })
 export const getCartCount: ReduxTypes.ActionCreator = (count: number) => ({
   type: GET_CART_COUNT,

@@ -1,17 +1,12 @@
 import { Order, ReduxTypes } from 'src/@types/redux-types'
-import { GET_ORDER } from './actions'
+import { GET_ORDERS } from './actions'
 
-const initialOrder: Order = {
-  id: -1,
-  status: '',
-  userId: -1,
-  products: []
-}
+const initialOrder: Array<Order> = []
 
-export default (state: Order = initialOrder, action: ReduxTypes.Action) => {
+export default (state = initialOrder, action: ReduxTypes.Action) => {
   switch (action.type) {
-    case GET_ORDER:
-      state = action.order
+    case GET_ORDERS:
+      state = action.orders
       return state
     default:
       return state
