@@ -31,7 +31,7 @@ const Sidebar = ({
 
   // fetch products when categoryId changes
   useEffect(() => {
-    fetchProducts(categoryId)
+    if (categoryId !== 0) fetchProducts(categoryId)
   }, [categoryId])
 
   return (
