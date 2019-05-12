@@ -108,9 +108,8 @@ conn
   .then(() => Order.addToCart(4, 2, 5))
   .then(() => Order.addToCart(4, 2, 5))
   .then(() => Order.addToCart(4, 2, 5))
-  // .then(() => Order.decreaseProductQuantityFromCart(3, 2, true))
+  // .then(() => Order.decreaseProductQuantityFromCart(3, 2, true)) //will remove item from cart
   // .then(() => Order.decreaseProductQuantityFromCart(3, 4, true)) //will error out correctly
-  // .then(() => Order.decreaseProductQuantityFromCart(3, 4)) //will reduce qty to 1
   // .then(() => Order.decreaseProductQuantityFromCart(5, 5)) //will reduce qty and remove item from ordersproduct
   // .then(() => Order.decreaseProductQuantityFromCart(7, 5)) //will error out correctly
   // .then(() => Order.decreaseProductQuantityFromCart(5, 1)) //will error out correctly
