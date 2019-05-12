@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 })
 
 const Nav = ({ user, order }: { user: User; order: Order[] }) => {
+  console.log(order)
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
       <div className="navbar-brand">
