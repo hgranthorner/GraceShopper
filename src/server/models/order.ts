@@ -69,14 +69,13 @@ class Order extends Model<Order> {
         }).then(async (userOrderCart) => {
           // userOrderCart is the orderProducts for the user's cart.
           // If the productId exists, add quantity, else create product with that qty.
-          let foundProductFromCart = userOrderCart.filter(orderProdLineItem => orderProdLineItem.productId === productId)
-          if (foundProductFromCart.length === 0) {
+          let foundProductFromCart = userOrderCart.find(orderProdLineItem => orderProdLineItem.productId === productId)
+          if (!foundProductFromCart) {
             // product does not exist in cart. add product to order
             return await OrdersProducts.create({ orderId: cart.id, productId: productId, quantity: quantity })
           } else {
             // product exists in cart. increase quantity
-            let rowToUpdate = foundProductFromCart[0]
-            return await rowToUpdate.update({ quantity: rowToUpdate.quantity + quantity })
+            return await foundProductFromCart.update({ quantity: foundProductFromCart.quantity + quantity })
           }
         })
       })
