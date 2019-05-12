@@ -11,15 +11,15 @@ interface GHNavLink {
   path: string
 }
 
-const mapStateToProps = ({ user, order, cartCount }: { user: User; order: Order[]; cartCount: number }) => {
-  return { user, order, cartCount }
+const mapStateToProps = ({ user, cartCount }: { user: User; cartCount: number }) => {
+  return { user, cartCount }
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchProducts: () => dispatch(fetchProducts())
 })
 
-const Nav = ({ user, order, cartCount }: { user: User; order: Order[]; cartCount: number }) => {
+const Nav = ({ user, cartCount }: { user: User; cartCount: number }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
       <div className="navbar-brand">
