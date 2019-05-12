@@ -7,7 +7,8 @@ import {
   searchProducts,
   createOrder,
   loggedInAddToOrder,
-  checkIfLoggedIn
+  checkIfLoggedIn,
+  logout
 } from './thunks'
 import { updateSearchTerm } from './actions'
 
@@ -21,5 +22,6 @@ export {
   searchProducts,
   createOrder,
   loggedInAddToOrder,
-  checkIfLoggedIn
+  checkIfLoggedIn,
+  logout
 }

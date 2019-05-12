@@ -86,6 +86,12 @@ export const login = ({ name, password }: { name: string; password: string }) =>
   }
 }
 
+export const logout = () => {
+  return (dispatch: any) => {
+    return axios.delete('/auth').then(() => dispatch(actions.getUser(initialUser)))
+  }
+}
+
 export const createOrder = (product: Product) => {
   return axios.post(`/api/orders`, product).then(res => res.data)
 }

@@ -12,6 +12,15 @@ router.get('/', (req: express.Request, res: express.Response, next: express.Next
   }
 })
 
+router.delete('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (req.session!.user) {
+    delete req.session!.user
+    res.sendStatus(204)
+  } else {
+    res.sendStatus(404)
+  }
+})
+
 router.put('/login', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   User.findOne({
     where: {
