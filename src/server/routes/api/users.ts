@@ -67,7 +67,7 @@ route.post(
         req.session!.order = []
       }
       req.session!.order.push(req.body)
-      res.status(200).send(`${req.session!.order.length}`)
+      res.send(`${req.session!.order.length}`)
     } else {
       console.log('found a user')
       // We have a logged in user, and a selected product.
@@ -77,7 +77,7 @@ route.post(
       // and add to that cart.
       Order.addToCart(userId, product.id)
         .then(cartId => OrdersProducts.findAll({ where: { orderId: cartId } }))
-        .then(orderProducts => res.status(200).send(`${orderProducts.length}`))
+        .then(orderProducts => res.send(`${orderProducts.length}`))
         .catch(next)
     }
   }
