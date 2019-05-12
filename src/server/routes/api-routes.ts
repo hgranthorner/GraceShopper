@@ -156,7 +156,7 @@ route.post(
       req.session!.order = []
     }
     req.session!.order.push(req.body)
-    res.sendStatus(200)
+    res.send(req.session!.order)
     next()
   }
 )

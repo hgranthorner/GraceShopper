@@ -10,11 +10,25 @@ const mapStateToProps = ({ user, order }: { user: User; order: Order }) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    userAddToOrder: (userId: number, product: Product) => dispatch(loggedInAddToOrder(userId, product))
+    userAddToOrder: (userId: number, product: Product) =>
+      dispatch(loggedInAddToOrder(userId, product)),
+    guestAddToOrder: (product: Product) => dispatch(createOrder(product))
   }
 }
 
-const ProductItem = ({ user, order, product, userAddToOrder }: { user: User; order: Order; product: Product; userAddToOrder: any }) => {
+const ProductItem = ({
+  user,
+  order,
+  product,
+  guestAddToOrder,
+  userAddToOrder
+}: {
+  user: User
+  order: Order
+  product: Product
+  guestAddToOrder: any
+  userAddToOrder: any
+}) => {
   const deleteProduct = () => {
     return
   }
@@ -22,7 +36,11 @@ const ProductItem = ({ user, order, product, userAddToOrder }: { user: User; ord
     <div className="border mb-2">
       <div className="row">
         <div className="col product-image">
-          <img alt="A picture of a product" src={product.imageUrl} className="col pt-1 pb-1 pl-1" />
+          <img
+            alt="A picture of a product"
+            src={product.imageUrl}
+            className="col pt-1 pb-1 pl-1"
+          />
         </div>
         <div className="col d-flex align-items-around justify-content-center flex-column">
           <div className="row d-flex align-items-center justify-content-around">
@@ -42,7 +60,11 @@ const ProductItem = ({ user, order, product, userAddToOrder }: { user: User; ord
                 <div className="btn-group">
                   <button
                     className={'btn btn-success'}
-                    onClick={() => (user.id === -1 ? createOrder(product) : userAddToOrder(user.id, product))}
+                    onClick={() =>
+                      user.id === -1
+                        ? guestAddToOrder(product)
+                        : userAddToOrder(user.id, product)
+                    }
                   >
                     +Cart
                   </button>

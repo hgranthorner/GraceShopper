@@ -83,7 +83,12 @@ export const login = ({
 }
 
 export const createOrder = (product: Product) => {
-  return axios.post(`/api/orders`, product).then(res => res.data)
+  return (dispatch: any) => {
+    return axios
+      .post(`/api/orders`, product)
+      .then(res => res.data)
+      .then(order => dispatch(actions.getOrder(order)))
+  }
 }
 
 export const loggedInAddToOrder = (userId: number, product: Product) => {
