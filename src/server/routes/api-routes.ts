@@ -1,11 +1,9 @@
 import express = require('express')
-import User from '../models/user'
-import Product from '../models/product'
-import Category from '../models/category'
-import Order from '../models/order'
+import * as routes from './api'
 
 const route = express.Router()
 
+<<<<<<< HEAD
 // get all users
 route.get(
   '/users',
@@ -165,5 +163,11 @@ route.post('/users/:id/orders', async (req, res, next) => {
   const order = await Order.addToCart(req.params.id, req.body.id)
   res.send(order)
 })
+=======
+route.use('/products', routes.productRoutes)
+route.use('/users', routes.userRoutes)
+route.use('/categories', routes.categoryRoutes)
+route.use('/orders', routes.orderRoutes)
+>>>>>>> bba20c860ec93cfb710a7972fc6115cb39b5f93a
 
 export default route

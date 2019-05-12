@@ -6,7 +6,9 @@ import {
   fetchProduct,
   searchProducts,
   createOrder,
-  loggedInAddToOrder
+  loggedInAddToOrder,
+  checkIfLoggedIn,
+  logout
 } from './thunks'
 import { updateSearchTerm } from './actions'
 
@@ -19,5 +21,7 @@ export {
   updateSearchTerm,
   searchProducts,
   createOrder,
-  loggedInAddToOrder
+  loggedInAddToOrder,
+  checkIfLoggedIn,
+  logout
 }

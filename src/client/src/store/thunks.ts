@@ -4,15 +4,14 @@ import { ThunkDispatch } from 'redux-thunk'
 import store from './store'
 import * as actions from './actions'
 import { User, Product, Category } from 'src/@types/redux-types'
+import { initialUser } from './user-reducer'
 
 export const fetchProducts = () => {
   return (dispatch: any) => {
     return axios
       .get('/api/products')
       .then(res => res.data)
-      .then((products: Array<Product>) =>
-        dispatch(actions.getProducts(products))
-      )
+      .then((products: Array<Product>) => dispatch(actions.getProducts(products)))
   }
 }
 
@@ -32,9 +31,7 @@ export const fetchProductsByCategory = (id: number) => {
     return axios
       .get(`/api/categories/${id}/products`)
       .then(res => res.data)
-      .then((category: Category) =>
-        dispatch(actions.getProducts(category.products))
-      )
+      .then((category: Category) => dispatch(actions.getProducts(category.products)))
   }
 }
 
@@ -43,9 +40,7 @@ export const fetchCategories = () => {
     return axios
       .get('/api/categories')
       .then(res => res.data)
-      .then((categories: Array<Category>) =>
-        dispatch(actions.getCategories(categories))
-      )
+      .then((categories: Array<Category>) => dispatch(actions.getCategories(categories)))
   }
 }
 
@@ -67,18 +62,33 @@ export const fetchLoggedInUser = () => {
   }
 }
 
-export const login = ({
-  name,
-  password
-}: {
-  name: string
-  password: string
-}) => {
+export const checkIfLoggedIn = () => {
+  return (dispatch: any) => {
+    axios
+      .get('/auth')
+      .then(res => {
+        if (res.status === 204) {
+          return initialUser
+        }
+
+        return res.data
+      })
+      .then((user: User) => dispatch(actions.getUser(user)))
+  }
+}
+
+export const login = ({ name, password }: { name: string; password: string }) => {
   return (dispatch: any) => {
     return axios
       .put('/auth/login', { name, password })
       .then(res => res.data)
       .then((user: User) => dispatch(actions.getUser(user)))
+  }
+}
+
+export const logout = () => {
+  return (dispatch: any) => {
+    return axios.delete('/auth').then(() => dispatch(actions.getUser(initialUser)))
   }
 }
 
