@@ -26,6 +26,10 @@ div > img {
   text-align: center;
 }
 
+.form-login {
+  width: 30%;
+}
+
 .product-image {
   width: 200px;
   height: 150px;
