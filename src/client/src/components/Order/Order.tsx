@@ -15,13 +15,7 @@ const Order = ({ orders, fetchOrders }: { orders: Order[]; fetchOrders: any }) =
     fetchOrders()
   }, [])
 
-  return (
-    <div>
-      {orders.map(order => (
-        <OrderDataTable key={order.id} order={order} />
-      ))}
-    </div>
-  )
+  return <div>{orders.length > 0 ? orders.map(order => <OrderDataTable key={order.id} order={order} />) : null}</div>
 }
 
 export default connect(

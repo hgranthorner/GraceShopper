@@ -1,30 +1,44 @@
 import express = require('express')
 import User from '../../models/user'
-import Order from '../../models/order'
+import Order, { Status } from '../../models/order'
 import OrdersProducts from '../../models/ordersProducts'
 import Product from '../../models/product'
 const route = express.Router()
 
 // get orders associated with a user by id
 route.get('/:id/orders', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  Order.findAll({
-    where: {
-      userId: req.params.id
-    },
-    include: [
+  console.log(req.params.id)
+  if (req.params.id === '-1') {
+    if (!req.session!.order) {
+      req.session!.order = []
+    }
+    const cart = [
       {
-        model: Product
+        status: Status.Cart,
+        userId: -1,
+        products: req.session!.order
       }
     ]
-  })
-    .then(orders => res.send(orders))
-    .catch(next)
+    res.send(cart)
+  } else {
+    Order.findAll({
+      where: {
+        userId: req.params.id
+      },
+      include: [
+        {
+          model: Product
+        }
+      ]
+    })
+      .then(orders => res.send(orders))
+      .catch(next)
+  }
 })
 
 route.post('/:userId/orders', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.log('post route hit')
   // Check if a user is logged in.
-  console.log(req.params.userId)
   if (req.params.userId === '-1') {
     console.log('no user logged in')
     // No user. We have ourselves a guest. Guest
@@ -39,13 +53,11 @@ route.post('/:userId/orders', (req: express.Request, res: express.Response, next
       req.session!.order = []
     }
     req.session!.order.push(req.body)
-    console.log(req.session!.order)
     res.status(200).send(`${req.session!.order.length}`)
   } else {
     console.log('found a user')
     // We have a logged in user, and a selected product.
     const userId = req.params.userId
-    console.log(userId)
     const product = req.body
     // Find the associated order that exists as an open cart,
     // and add to that cart.
