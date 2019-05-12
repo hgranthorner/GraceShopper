@@ -3,7 +3,7 @@ import { ThunkDispatch } from 'redux-thunk'
 
 import store from './store'
 import * as actions from './actions'
-import { User, Product, Category } from 'src/@types/redux-types'
+import { User, Product, Category, Order } from 'src/@types/redux-types'
 import { initialUser } from './user-reducer'
 
 export const fetchProducts = () => {
@@ -77,6 +77,15 @@ export const checkIfLoggedIn = () => {
   }
 }
 
+export const fetchOrders = () => {
+  return (dispatch: any) => {
+    axios
+      .get(`/api/users/${store.getState().user.id}/orders`)
+      .then(res => res.data)
+      .then((orders: Array<Order>) => dispatch(actions.getOrders(orders)))
+  }
+}
+
 export const login = ({ name, password }: { name: string; password: string }) => {
   return (dispatch: any) => {
     return axios
@@ -92,22 +101,12 @@ export const logout = () => {
   }
 }
 
-export const createOrder = (product: Product) => {
+export const addItemToCart = (userId: number, product: Product) => {
   return (dispatch: any) => {
-    return axios
-      .post(`/api/orders`, product)
-      .then(res => res.data)
-      .then(order => dispatch(actions.getOrder(order)))
-  }
-}
-
-export const loggedInAddToOrder = (userId: number, product: Product) => {
-  console.log('inside function')
-  return (dispatch: any) => {
-    console.log('inside dispatch')
+    console.log('inside thunk. making axios call', product)
     return axios
       .post(`/api/users/${userId}/orders`, product)
       .then(res => res.data)
-      .then(order => dispatch(actions.getOrder(order)))
+      .then((count: number) => dispatch(actions.getCartCount(count)))
   }
 }

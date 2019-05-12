@@ -4,10 +4,10 @@ import {
   fetchCategories,
   fetchProductsByCategory,
   fetchProduct,
+  fetchOrders,
   searchProducts,
-  createOrder,
-  loggedInAddToOrder,
   checkIfLoggedIn,
+  addItemToCart,
   logout
 } from './thunks'
 import { updateSearchTerm } from './actions'
@@ -18,10 +18,10 @@ export {
   fetchCategories,
   fetchProductsByCategory,
   fetchProduct,
+  fetchOrders,
   updateSearchTerm,
   searchProducts,
-  createOrder,
-  loggedInAddToOrder,
   checkIfLoggedIn,
+  addItemToCart,
   logout
 }

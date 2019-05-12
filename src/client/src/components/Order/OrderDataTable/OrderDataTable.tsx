@@ -1,7 +1,8 @@
 import React from 'react'
-import { Product } from 'src/@types/redux-types'
+import { Product, Order } from 'src/@types/redux-types'
+import OrderRow from './OrderRow'
 
-const OrderDataTable = ({ order }: { order: Product[] }) => {
+const OrderDataTable = ({ order }: { order: Order }) => {
   return (
     <table className="table table-striped">
       <thead>
@@ -13,16 +14,7 @@ const OrderDataTable = ({ order }: { order: Product[] }) => {
         </tr>
       </thead>
       <tbody>
-        {order.length > 0
-          ? order.map((item: Product) => (
-              <tr key={item.id}>
-                <th>{item.id}</th>
-                <th>{item.name}</th>
-                <th>{item.price}</th>
-                <th>{item.quantity}</th>
-              </tr>
-            ))
-          : null}
+        {order.products.length > 0 ? order.products.map((product: Product) => <OrderRow product={product} key={product.id} />) : null}
       </tbody>
     </table>
   )
