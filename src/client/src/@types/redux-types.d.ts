@@ -1,5 +1,3 @@
-import Status from '../../../server/models/order'
-
 export namespace ReduxTypes {
   export interface Action {
     type: Symbol
@@ -34,6 +32,6 @@ export interface Category {
 
 export interface Order {
   id: number
-  status: Status
+  status: string
   userId: number
 }
