@@ -5,6 +5,7 @@ import store from './store'
 import * as actions from './actions'
 import { User, Product, Category, Order } from 'src/@types/redux-types'
 import { initialUser } from './user-reducer'
+import { Dispatch } from 'redux'
 
 export const fetchProducts = () => {
   return (dispatch: any) => {
@@ -77,6 +78,15 @@ export const checkIfLoggedIn = () => {
   }
 }
 
+export const fetchOrder = (orderId: number) => {
+  return (dispatch: any) => {
+    axios
+      .get(`/api/users/${store.getState().user.id}/orders/${orderId}`)
+      .then(res => res.data)
+      .then((order: Order) => dispatch(actions.getOrder(order)))
+  }
+}
+
 export const fetchOrders = () => {
   return (dispatch: any) => {
     axios
@@ -108,5 +118,14 @@ export const addItemToCart = (userId: number, product: Product) => {
       .post(`/api/users/${userId}/orders`, product)
       .then(res => res.data)
       .then((count: number) => dispatch(actions.getCartCount(count)))
+  }
+}
+
+export const checkoutOrder = (orderId: number) => {
+  return (dispatch: Dispatch) => {
+    return axios
+      .put(`/api/users/${store.getState().user.id}/orders/${orderId}`, { orderId })
+      .then(res => res.data)
+      .then(() => dispatch(actions.getCartCount(0)))
   }
 }

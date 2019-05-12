@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Home, Nav, Footer, Product, Login, Order } from './components'
+import { Home, Nav, Footer, Product, Login, Order, Checkout } from './components'
 import { connect } from 'react-redux'
 import { checkIfLoggedIn } from './store'
 import { User } from './@types/redux-types'
@@ -13,13 +13,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   checkIfLoggedIn: () => dispatch(checkIfLoggedIn())
 })
 
-const App = ({
-  user,
-  checkIfLoggedIn
-}: {
-  user: User
-  checkIfLoggedIn: any
-}) => {
+const App = ({ user, checkIfLoggedIn }: { user: User; checkIfLoggedIn: any }) => {
   useEffect(() => {
     if (user.id === -1) checkIfLoggedIn()
   })
@@ -32,7 +26,8 @@ const App = ({
         <Route path="/categories/" component={Home} />
         <Route path="/products/:id" exact component={Product} />
         <Route path="/login" exact component={Login} />
-        <Route path="/orders" exact component={Order} />
+        <Route path="/orders" exact component={Order} />"
+        <Route path="/orders/:orderId/checkout" exact component={Checkout} />"
       </Switch>
       <Footer />
     </HashRouter>

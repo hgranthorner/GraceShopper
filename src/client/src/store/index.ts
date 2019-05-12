@@ -5,10 +5,12 @@ import {
   fetchProductsByCategory,
   fetchProduct,
   fetchOrders,
+  fetchOrder,
   searchProducts,
   checkIfLoggedIn,
   addItemToCart,
-  logout
+  logout,
+  checkoutOrder
 } from './thunks'
 import { updateSearchTerm } from './actions'
 
@@ -19,9 +21,11 @@ export {
   fetchProductsByCategory,
   fetchProduct,
   fetchOrders,
+  fetchOrder,
   updateSearchTerm,
   searchProducts,
   checkIfLoggedIn,
   addItemToCart,
-  logout
+  logout,
+  checkoutOrder
 }

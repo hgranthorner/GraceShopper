@@ -14,6 +14,7 @@ route.get('/:id/orders', (req: express.Request, res: express.Response, next: exp
     }
     const cart = [
       {
+        id: -1,
         status: Status.Cart,
         userId: -1,
         products: req.session!.order
@@ -34,6 +35,50 @@ route.get('/:id/orders', (req: express.Request, res: express.Response, next: exp
       .then(orders => res.send(orders))
       .catch(next)
   }
+})
+
+//get specific order for user
+route.get('/:userId/orders/:orderId', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.log(req.params.userId)
+  if (req.params.userId === '-1') {
+    if (!req.session!.order) {
+      req.session!.order = []
+    }
+    const cart = {
+      id: -1,
+      status: Status.Cart,
+      userId: -1,
+      products: req.session!.order
+    }
+
+    res.send(cart)
+  } else {
+    Order.findOne({
+      where: {
+        userId: req.params.userId,
+        id: req.params.orderId
+      },
+      include: [
+        {
+          model: Product
+        }
+      ]
+    })
+      .then(order => res.send(order))
+      .catch(next)
+  }
+})
+
+route.put('/:userId/orders/:orderId', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  Order.findOne({
+    where: {
+      userId: req.params.userId,
+      id: req.params.orderId
+    }
+  })
+    .then(order => order!.update({ status: Status.Processing }))
+    .then(() => res.sendStatus(204))
+    .catch(next)
 })
 
 route.post('/:userId/orders', (req: express.Request, res: express.Response, next: express.NextFunction) => {
