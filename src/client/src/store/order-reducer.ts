@@ -4,7 +4,8 @@ import { GET_ORDER } from './actions'
 const initialOrder: Order = {
   id: -1,
   status: '',
-  userId: -1
+  userId: -1,
+  products: []
 }
 
 export default (state: Order = initialOrder, action: ReduxTypes.Action) => {
