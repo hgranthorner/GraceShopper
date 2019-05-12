@@ -3,7 +3,7 @@ import { ThunkDispatch } from 'redux-thunk'
 
 import store from './store'
 import * as actions from './actions'
-import { User, Product, Category } from 'src/@types/redux-types'
+import { User, Product, Category, Order } from 'src/@types/redux-types'
 import { initialUser } from './user-reducer'
 
 export const fetchProducts = () => {
@@ -82,9 +82,7 @@ export const fetchOrders = () => {
     axios
       .get(`/api/users/${store.getState().user.id}/orders`)
       .then(res => res.data)
-      .then((data: any) => {
-        console.log(data)
-      })
+      .then((orders: Array<Order>) => dispatch(actions.getOrders(orders)))
   }
 }
 

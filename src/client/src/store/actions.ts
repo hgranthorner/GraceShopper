@@ -27,8 +27,8 @@ export const getOrder: ReduxTypes.ActionCreator = (order: Order) => ({
   type: GET_ORDER,
   order
 })
-export const getOrders: ReduxTypes.ActionCreator = (orders: Array<Order>) => ({
-  type: GET_ORDER,
+export const getOrders = (orders: Array<Order>) => ({
+  type: GET_ORDERS,
   orders
 })
 export const getCartCount: ReduxTypes.ActionCreator = (count: number) => ({

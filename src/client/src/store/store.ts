@@ -7,7 +7,7 @@ import categories from './categories-reducer'
 import products from './products-reducer'
 import product from './product-reducer'
 import searchTerm from './searchTerm-reducer'
-import orders from './order-reducer'
+import orders from './orders-reducer'
 import cartCount from './cart-count-reducer'
 
 const store = createStore(
