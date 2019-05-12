@@ -32,6 +32,26 @@ class User extends Model<User> {
 
   @HasMany(() => Order)
   orders!: Order[]
+
+  static createUser = async ({
+    name,
+    password
+  }: {
+    name: string
+    password: string
+  }) => {
+    const user = await User.findOne({
+      where: {
+        name
+      }
+    })
+
+    if (!user) {
+      return User.create({ name, password })
+    } else {
+      throw new Error(`Username ${user.name} already exists!`)
+    }
+  }
 }
 
 export default User

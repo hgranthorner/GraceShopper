@@ -42,7 +42,7 @@ route.get(
 route.post(
   '/',
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    User.create({ name: req.body.name, password: req.body.password })
+    return User.createUser({ name: req.body.name, password: req.body.password })
       .then(user => res.send(user))
       .catch(next)
   }
