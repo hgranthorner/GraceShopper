@@ -34,4 +34,5 @@ export interface Order {
   id: number
   status: string
   userId: number
+  products: Array<Product>
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Product } from 'src/@types/redux-types'
+import OrderRow from './OrderRow'
 
 const OrderDataTable = ({ order }: { order: Product[] }) => {
   return (
@@ -12,18 +13,7 @@ const OrderDataTable = ({ order }: { order: Product[] }) => {
           <th>quantity</th>
         </tr>
       </thead>
-      <tbody>
-        {order.length > 0
-          ? order.map((item: Product) => (
-              <tr key={item.id}>
-                <th>{item.id}</th>
-                <th>{item.name}</th>
-                <th>{item.price}</th>
-                <th>{item.quantity}</th>
-              </tr>
-            ))
-          : null}
-      </tbody>
+      <tbody>{order.length > 0 ? order.map((product: Product) => <OrderRow product={product} key={product.id} />) : null}</tbody>
     </table>
   )
 }
