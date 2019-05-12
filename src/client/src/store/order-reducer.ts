@@ -3,7 +3,7 @@ import { GET_ORDER } from './actions'
 
 const initialOrder: Order = {
   id: -1,
-  isCart: false,
+  status: '',
   userId: -1
 }
 
