@@ -38,30 +38,72 @@ class Order extends Model<Order> {
     // 2. there are orders, but no cart: make a cart
     // 3. there is a cart, find one
 
-    return Order.findAll({
+    return Order.findOne({
       where: {
         userId,
         status: Status.Cart
       }
     })
-      .then(async orders => {
+      .then(async orderCart => {
         let cart
-        if (orders.length === 0) {
-          console.log(`cannot find order for userId ${userId}: creating one`)
+        if (!orderCart) {
+          console.log(`cannot find cart for userId ${userId}: creating one`)
           cart = await Order.create({ userId, status: Status.Cart })
-        } else {
-          cart = orders.find(order => order.status === Status.Cart)
-          if (!cart) {
-            console.log(`cannot find cart for userId : creating one`)
-            cart = await Order.create({ userId, status: Status.Cart })
-          }
-        }
+        } else cart = orderCart
+        // else {
+        //   cart = orders.find(order => order.status === Status.Cart)
+        //   if (!cart) {
+        //     console.log(`cannot find cart for userId : creating one`)
+        //     cart = await Order.create({ userId, status: Status.Cart })
+        //   }
+        // }
         return cart
       })
       // 4. find existing ordersProduct instance and increase quantity by quantity.
       // 5. if no existing ordersProduct instance, create instance.
-      .then(cart => OrdersProducts.create({ orderId: cart.id, productId: productId, quantity: quantity }))
+      .then(cart => {
+        // cart = order with status cart
+        return OrdersProducts.findAll({
+          where: {
+            orderId: cart.id
+          }
+        }).then(async (userOrderCart) => {
+          // userOrderCart is the orderProducts for the user's cart.
+          // If the productId exists, add quantity, else create product with that qty.
+          let foundProductFromCart = userOrderCart.filter(orderProdLineItem => orderProdLineItem.productId === productId)
+          if (foundProductFromCart.length === 0) {
+            // product does not exist in cart. add product to order
+            return await OrdersProducts.create({ orderId: cart.id, productId: productId, quantity: quantity })
+          } else {
+            // product exists in cart. increase quantity
+            let rowToUpdate = foundProductFromCart[0]
+            return await rowToUpdate.update({ quantity: rowToUpdate.quantity + quantity })
+          }
+        })
+      })
       .catch((e: Error) => console.log(`Failed to add to cart. \n${e}`))
+  }
+
+  static deleteFromCart(userId: number, productId: number) {
+    // find user's cart
+    return Order.findOne({
+      where: {
+        userId: userId,
+        status: Status.Cart
+      }
+    })
+      .then(cart => {
+        if (!cart) throw new Error('User has no cart. Should not empty a nonexistant cart')
+        OrdersProducts.findAll({
+          where: {
+            orderId: cart.id
+          }
+        })
+          .then(() => {
+
+          })
+      })
+
   }
 
   static emptyCart(userId: number) {
@@ -74,8 +116,7 @@ class Order extends Model<Order> {
       }
     })
       .then(cart => {
-        if (!cart) return new Error('User has no cart. Should not empty a nonexistant cart')
-        console.log('cart:', cart.get())
+        if (!cart) throw new Error('User has no cart. Should not empty a nonexistant cart')
         OrdersProducts.findAll({
           where: {
             orderId: cart.id
@@ -87,10 +128,8 @@ class Order extends Model<Order> {
             })
           })
       })
-      .catch(er => console.error(`Failed to empty cart. Error:\n${er}`))
-
+      .catch(er => console.log(`Failed to empty cart.\n${er}`))
   }
-
 }
 
 export default Order
