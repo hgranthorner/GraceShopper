@@ -37,7 +37,6 @@ class Order extends Model<Order> {
     // 1. no orders: make a first cart
     // 2. there are orders, but no cart: make a cart
     // 3. there is a cart, find one
-
     return Order.findOne({
       where: {
         userId,
@@ -104,7 +103,7 @@ class Order extends Model<Order> {
           .then(async (orderProductLineItem) => {
             if (!orderProductLineItem) throw new Error(`Product ${productId} does not exist in cart.`)
             if (orderProductLineItem.quantity === 1 || removeAll) return await orderProductLineItem.destroy()
-            return await orderProductLineItem.update({ quantity: --orderProductLineItem.quantity })
+            return await orderProductLineItem.update({ quantity: orderProductLineItem.quantity - 1 })
           })
           .catch(er => console.log(`Failed to ${removeAll ? 'delete' : 'decrement'} product ${productId} from ${userId}'s cart.`))
       })

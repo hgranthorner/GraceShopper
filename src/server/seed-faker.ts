@@ -110,10 +110,10 @@ conn
   .then(() => Order.addToCart(4, 2, 5))
   .then(() => Order.decreaseProductQuantityFromCart(3, 2))
   .then(() => Order.decreaseProductQuantityFromCart(5, 5))
-  // .then(() => Order.decreaseProductQuantityFromCart(7, 5))
-  // .then(() => Order.decreaseProductQuantityFromCart(5, 1))
-  .then(() => Order.emptyCart(1))
-  .then(() => Order.emptyCart(6))
+  // .then(() => Order.decreaseProductQuantityFromCart(7, 5)) //will error out correctly
+  // .then(() => Order.decreaseProductQuantityFromCart(5, 1)) //will error out correctly
+  // .then(() => Order.emptyCart(1))
+  // .then(() => Order.emptyCart(6))
 
 
 
@@ -153,5 +153,5 @@ conn
   //   // console.log('Finished order #6')
   //   return order
   // })
-  .then(() => console.log('finished with everything'))
+  .then(() => console.log('Seed-Faker finished with everything.'))
   .catch((e: Error) => console.log(`Failed to seed. Here's why:\n${e}`))
