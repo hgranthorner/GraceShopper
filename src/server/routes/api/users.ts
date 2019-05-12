@@ -1,6 +1,7 @@
 import express = require('express')
 import User from '../../models/user'
 import Order from '../../models/order'
+import OrdersProducts from '../../models/ordersProducts'
 const route = express.Router()
 
 // get orders associated with a user by id
@@ -37,7 +38,8 @@ route.post('/:userId/orders', (req: express.Request, res: express.Response, next
       req.session!.order = []
     }
     req.session!.order.push(req.body)
-    res.send(req.session!.order)
+    console.log(req.session!.order)
+    res.status(200).send(`${req.session!.order.length}`)
   } else {
     console.log('found a user')
     // We have a logged in user, and a selected product.
@@ -46,9 +48,11 @@ route.post('/:userId/orders', (req: express.Request, res: express.Response, next
     const product = req.body
     // Find the associated order that exists as an open cart,
     // and add to that cart.
-    return Order.addToCart(userId, product.id)
+    Order.addToCart(userId, product.id)
+      .then(cartId => OrdersProducts.findAll({ where: { orderId: cartId } }))
+      .then(orderProducts => res.status(200).send(`${orderProducts.length}`))
+      .catch(next)
   }
-  next()
 })
 
 export default route

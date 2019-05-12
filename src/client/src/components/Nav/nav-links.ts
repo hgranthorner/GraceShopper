@@ -1,29 +1,29 @@
 export const noUserLoggedInNav = [
   {
-    type: 'Home',
+    name: 'Home',
     path: '/'
   },
   {
-    type: 'Cart',
+    name: 'Cart',
     path: '/orders'
   },
   {
-    type: 'Login',
+    name: 'Login',
     path: '/login'
   }
 ]
 
 export const userLoggedInNav = [
   {
-    type: 'Home',
+    name: 'Home',
     path: '/'
   },
   {
-    type: 'Cart',
+    name: 'Cart',
     path: '/orders'
   },
   {
-    type: 'Account',
+    name: 'Account',
     path: '/account'
   }
 ]

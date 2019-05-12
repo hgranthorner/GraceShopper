@@ -6,15 +6,20 @@ import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
 import { fetchProducts } from '../../store'
 
-const mapStateToProps = ({ user, order }: { user: User; order: Order[] }) => {
-  return { user, order }
+interface GHNavLink {
+  name: string
+  path: string
+}
+
+const mapStateToProps = ({ user, order, cartCount }: { user: User; order: Order[]; cartCount: number }) => {
+  return { user, order, cartCount }
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchProducts: () => dispatch(fetchProducts())
 })
 
-const Nav = ({ user, order }: { user: User; order: Order[] }) => {
+const Nav = ({ user, order, cartCount }: { user: User; order: Order[]; cartCount: number }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
       <div className="navbar-brand">
@@ -24,26 +29,14 @@ const Nav = ({ user, order }: { user: User; order: Order[] }) => {
       </div>
       <div className="navbar-nav">
         {user.name !== ''
-          ? userLoggedInNav.map((link: any) => (
-              <NavLink
-                className="nav-item nav-link"
-                to={link.path}
-                key={link.path}
-              >
-                {link.type}
+          ? userLoggedInNav.map((link: GHNavLink) => (
+              <NavLink className="nav-item nav-link" to={link.path} key={link.path}>
+                {link.name === 'Cart' ? (cartCount > 0 ? `${link.name}(${cartCount})` : link.name) : `${link.name}`}
               </NavLink>
             ))
-          : noUserLoggedInNav.map((link: any) => (
-              <NavLink
-                className="nav-item nav-link"
-                to={link.path}
-                key={link.path}
-              >
-                {link.type === 'Cart'
-                  ? order.length > 0
-                    ? `${link.type}(${order.length})`
-                    : link.type
-                  : `${link.type}`}
+          : noUserLoggedInNav.map((link: GHNavLink) => (
+              <NavLink className="nav-item nav-link" to={link.path} key={link.path}>
+                {link.name === 'Cart' ? (cartCount > 0 ? `${link.name}(${cartCount})` : link.name) : `${link.name}`}
               </NavLink>
             ))}
       </div>
