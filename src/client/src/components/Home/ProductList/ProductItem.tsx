@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { User, Product, Order } from 'src/@types/redux-types'
 import { Link } from 'react-router-dom'
 import { addItemToCart } from '../../../store'
@@ -14,9 +14,21 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
+enum ButtonText {
+  add = '+Cart',
+  added = 'Added!'
+}
+
 const ProductItem = ({ user, order, product, add }: { user: User; order: Order; product: Product; add: any }) => {
-  const deleteProduct = () => {
-    return
+  const [buttonText, setButtonText] = useState(ButtonText.add)
+
+  const addToCart = () => {
+    add(user.id, product).then(() => {
+      setButtonText(ButtonText.added)
+      setTimeout(() => {
+        setButtonText(ButtonText.add)
+      }, 3000)
+    })
   }
   return (
     <div className="border mb-2">
@@ -42,8 +54,8 @@ const ProductItem = ({ user, order, product, add }: { user: User; order: Order; 
               <p>{product.description}</p>
             </div>
             <div className="col d-flex justify-content-center align-items-center">
-              <button className="btn btn-raised btn-success" onClick={() => add(user.id, product)}>
-                +Cart
+              <button className="btn btn-raised btn-success" onClick={addToCart}>
+                {buttonText}
               </button>
             </div>
           </div>
