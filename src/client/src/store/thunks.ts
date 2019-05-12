@@ -129,3 +129,12 @@ export const checkoutOrder = (orderId: number) => {
       .then(() => dispatch(actions.getCartCount(0)))
   }
 }
+
+export const createNewUser = ({ name, password }: { name: string; password: string }) => {
+  return (dispatch: any) => {
+    return axios
+      .post('/api/users', { name, password })
+      .then(res => res.data)
+      .then((user: User) => dispatch(actions.getUser(user)))
+  }
+}

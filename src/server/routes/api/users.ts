@@ -37,6 +37,12 @@ route.get('/:id/orders', (req: express.Request, res: express.Response, next: exp
   }
 })
 
+route.post('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  return User.createUser({ name: req.body.name, password: req.body.password })
+    .then(user => res.send(user))
+    .catch(next)
+})
+
 //get specific order for user
 route.get('/:userId/orders/:orderId', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.log(req.params.userId)
@@ -92,7 +98,7 @@ route.post('/:userId/orders', (req: express.Request, res: express.Response, next
       req.session!.order = []
     }
     req.session!.order.push(req.body)
-    res.status(200).send(`${req.session!.order.length}`)
+    res.send(`${req.session!.order.length}`)
   } else {
     console.log('found a user')
     // We have a logged in user, and a selected product.
@@ -102,7 +108,7 @@ route.post('/:userId/orders', (req: express.Request, res: express.Response, next
     // and add to that cart.
     Order.addToCart(userId, product.id)
       .then(cartId => OrdersProducts.findAll({ where: { orderId: cartId } }))
-      .then(orderProducts => res.status(200).send(`${orderProducts.length}`))
+      .then(orderProducts => res.send(`${orderProducts.length}`))
       .catch(next)
   }
 })

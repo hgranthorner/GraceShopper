@@ -4,31 +4,38 @@ import Order from '../models/order'
 import Product from '../models/product'
 const router = express.Router()
 
-router.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  if (req.session!.user) {
-    res.send(req.session!.user)
-  } else {
-    res.sendStatus(204)
-  }
-})
-
-router.delete('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  if (req.session!.user) {
-    delete req.session!.user
-    res.sendStatus(204)
-  } else {
-    res.sendStatus(404)
-  }
-})
-
-router.put('/login', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  User.findOne({
-    where: {
-      name: req.body.name,
-      password: req.body.password
+router.get(
+  '/',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (req.session!.user) {
+      res.send(req.session!.user)
+    } else {
+      res.sendStatus(204)
     }
-  })
-    .then(async user => {
+  }
+)
+
+router.delete(
+  '/',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (req.session!.user) {
+      delete req.session!.user
+      res.sendStatus(204)
+    } else {
+      res.sendStatus(404)
+    }
+  }
+)
+
+router.put(
+  '/login',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    User.findOne({
+      where: {
+        name: req.body.name,
+        password: req.body.password
+      }
+    }).then(async user => {
       try {
         if (!user) {
           res.sendStatus(401)
@@ -50,10 +57,10 @@ router.put('/login', (req: express.Request, res: express.Response, next: express
         console.log('deleting order from req.session')
         delete req.session!.order
         console.log(e)
-        next()
+        next(e)
       }
     })
-    .catch(next)
-})
+  }
+)
 
 export default router
