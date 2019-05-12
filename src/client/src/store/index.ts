@@ -5,9 +5,8 @@ import {
   fetchProductsByCategory,
   fetchProduct,
   searchProducts,
-  createOrder,
-  loggedInAddToOrder,
   checkIfLoggedIn,
+  addItemToCart,
   logout
 } from './thunks'
 import { updateSearchTerm } from './actions'
@@ -20,8 +19,7 @@ export {
   fetchProduct,
   updateSearchTerm,
   searchProducts,
-  createOrder,
-  loggedInAddToOrder,
   checkIfLoggedIn,
+  addItemToCart,
   logout
 }

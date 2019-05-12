@@ -1,7 +1,7 @@
 import React from 'react'
 import { User, Product, Order } from 'src/@types/redux-types'
 import { Link } from 'react-router-dom'
-import { createOrder, loggedInAddToOrder } from '../../../store'
+import { addItemToCart } from '../../../store'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ user, order }: { user: User; order: Order }) => {
@@ -10,9 +10,8 @@ const mapStateToProps = ({ user, order }: { user: User; order: Order }) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    userAddToOrder: (userId: number, product: Product) =>
-      dispatch(loggedInAddToOrder(userId, product)),
-    guestAddToOrder: (product: Product) => dispatch(createOrder(product))
+    add: (userId: number, product: Product) =>
+      dispatch(addItemToCart(userId, product))
   }
 }
 
@@ -20,14 +19,12 @@ const ProductItem = ({
   user,
   order,
   product,
-  guestAddToOrder,
-  userAddToOrder
+  add
 }: {
   user: User
   order: Order
   product: Product
-  guestAddToOrder: any
-  userAddToOrder: any
+  add: any
 }) => {
   const deleteProduct = () => {
     return
@@ -60,11 +57,7 @@ const ProductItem = ({
                 <div className="btn-group">
                   <button
                     className={'btn btn-success'}
-                    onClick={() =>
-                      user.id === -1
-                        ? guestAddToOrder(product)
-                        : userAddToOrder(user.id, product)
-                    }
+                    onClick={() => add(user.id, product)}
                   >
                     +Cart
                   </button>
