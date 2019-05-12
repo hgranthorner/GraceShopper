@@ -54,7 +54,7 @@ class Order extends Model<Order> {
         return cart
       })
       .then(cart => OrdersProducts.create({ orderId: cart.id, productId: productId }))
-      .catch((e: Error) => console.log(`Failed to add to cart. \n${e}`))
+      .then(lineItem => lineItem.orderId)
   }
 }
 
