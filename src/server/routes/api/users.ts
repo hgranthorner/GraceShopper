@@ -70,13 +70,7 @@ route.get('/:userId/orders/:orderId', (req: express.Request, res: express.Respon
 })
 
 route.put('/:userId/orders/:orderId', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  Order.findOne({
-    where: {
-      userId: req.params.userId,
-      id: req.params.orderId
-    }
-  })
-    .then(order => order!.update({ status: Status.Processing }))
+  Order.checkoutCart(req.params.userId)
     .then(() => res.sendStatus(204))
     .catch(next)
 })
