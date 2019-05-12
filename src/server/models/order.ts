@@ -65,7 +65,6 @@ class Order extends Model<Order> {
         return OrdersProducts.findAll({
           where: {
             orderId: cart.id,
-            status: Status.Cart
           }
         })
           .then(async (userOrderCart) => {
@@ -80,7 +79,9 @@ class Order extends Model<Order> {
               return await foundProductFromCart.update({ quantity: foundProductFromCart.quantity + quantity })
             }
           })
-          .then(() => cart.id)
+          .then(() => {
+            return cart.id
+          })
       })
       .catch((e: Error) => console.log(`Failed to add to cart. \n${e}`))
   }
