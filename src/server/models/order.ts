@@ -84,7 +84,8 @@ class Order extends Model<Order> {
       .catch((e: Error) => console.log(`Failed to add to cart. \n${e}`))
   }
 
-  static deleteFromCart(userId: number, productId: number) {
+  // Removes a product from cart. if optional paramter removeAll=true, then it removes all quantity of this item from the cart
+  static decreaseProductQuantityFromCart(userId: number, productId: number, removeAll: boolean = false) {
     // find user's cart
     return Order.findOne({
       where: {
@@ -93,17 +94,20 @@ class Order extends Model<Order> {
       }
     })
       .then(cart => {
-        if (!cart) throw new Error('User has no cart. Should not empty a nonexistant cart')
-        OrdersProducts.findAll({
+        if (!cart) throw new Error(`User ${userId} has no cart. Should not empty a nonexistant cart.`)
+        OrdersProducts.findOne({
           where: {
-            orderId: cart.id
+            orderId: cart.id,
+            productId: productId
           }
         })
-          .then(() => {
-
+          .then(async (orderProductLineItem) => {
+            if (!orderProductLineItem) throw new Error(`Product ${productId} does not exist in cart.`)
+            if (orderProductLineItem.quantity === 1 || removeAll) return await orderProductLineItem.destroy()
+            return await orderProductLineItem.update({ quantity: --orderProductLineItem.quantity })
           })
+          .catch(er => console.log(`Failed to ${removeAll ? 'delete' : 'decrement'} product ${productId} from ${userId}'s cart.`))
       })
-
   }
 
   static emptyCart(userId: number) {
@@ -116,16 +120,14 @@ class Order extends Model<Order> {
       }
     })
       .then(cart => {
-        if (!cart) throw new Error('User has no cart. Should not empty a nonexistant cart')
+        if (!cart) throw new Error(`User ${userId} has no cart. Should not empty a nonexistant cart`)
         OrdersProducts.findAll({
           where: {
             orderId: cart.id
           }
         })
-          .then((cartItems) => {
-            cartItems.map(cartItem => {
-              cartItem.destroy()
-            })
+          .then(cartItems => {
+            return cartItems.map(cartItem => cartItem.destroy())
           })
       })
       .catch(er => console.log(`Failed to empty cart.\n${er}`))
