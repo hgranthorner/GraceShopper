@@ -100,20 +100,22 @@ conn
   })
   .then(() => Order.create({ userId: 2, status: Status.Processing }))
   .then(() => Order.addToCart(1, 2, 10))
-  .then(() => Order.addToCart(2, 2, 5))
-  .then(() => Order.addToCart(2, 3, 6))
-  .then(() => Order.addToCart(2, 4, 7))
+  .then(() => Order.addToCart(2, 2, 2))
+  .then(() => Order.addToCart(2, 3, 3))
+  .then(() => Order.addToCart(2, 4, 4))
   .then(() => Order.addToCart(3, 2, 5))
   .then(() => Order.addToCart(5, 5, 1))
   .then(() => Order.addToCart(4, 2, 5))
   .then(() => Order.addToCart(4, 2, 5))
   .then(() => Order.addToCart(4, 2, 5))
-  .then(() => Order.decreaseProductQuantityFromCart(3, 2))
-  .then(() => Order.decreaseProductQuantityFromCart(5, 5))
+  // .then(() => Order.decreaseProductQuantityFromCart(3, 2, true))
+  // .then(() => Order.decreaseProductQuantityFromCart(3, 4, true)) //will error out correctly
+  // .then(() => Order.decreaseProductQuantityFromCart(3, 4)) //will reduce qty to 1
+  // .then(() => Order.decreaseProductQuantityFromCart(5, 5)) //will reduce qty and remove item from ordersproduct
   // .then(() => Order.decreaseProductQuantityFromCart(7, 5)) //will error out correctly
   // .then(() => Order.decreaseProductQuantityFromCart(5, 1)) //will error out correctly
-  // .then(() => Order.emptyCart(1))
-  // .then(() => Order.emptyCart(6))
+  // .then(() => Order.emptyCart(1)) //will empty cart correctly
+  // .then(() => Order.emptyCart(6)) //will error out correctly
 
 
 
