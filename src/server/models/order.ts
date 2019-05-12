@@ -93,7 +93,7 @@ class Order extends Model<Order> {
     })
       .then(cart => {
         if (!cart) throw new Error(`User ${userId} has no cart. Should not empty a nonexistant cart.`)
-        OrdersProducts.findOne({
+        return OrdersProducts.findOne({
           where: {
             orderId: cart.id,
             productId: productId
@@ -119,7 +119,7 @@ class Order extends Model<Order> {
     })
       .then(cart => {
         if (!cart) throw new Error(`User ${userId} has no cart. Should not empty a nonexistant cart`)
-        OrdersProducts.findAll({
+        return OrdersProducts.findAll({
           where: {
             orderId: cart.id
           }
