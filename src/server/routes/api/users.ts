@@ -2,21 +2,22 @@ import express = require('express')
 import User from '../../models/user'
 import Order from '../../models/order'
 import OrdersProducts from '../../models/ordersProducts'
+import Product from '../../models/product'
 const route = express.Router()
 
 // get orders associated with a user by id
 route.get('/:id/orders', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  User.findOne({
+  Order.findAll({
     where: {
-      id: req.params.id
+      userId: req.params.id
     },
     include: [
       {
-        model: Order
+        model: Product
       }
     ]
   })
-    .then(user => res.send(user))
+    .then(orders => res.send(orders))
     .catch(next)
 })
 
