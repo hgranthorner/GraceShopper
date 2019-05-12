@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
 import { login } from '../../store/thunks'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    handleSubmit: (name: string, password: string) => dispatch(login({ name, password }))
+    handleSubmit: (name: string, password: string) =>
+      dispatch(login({ name, password }))
   }
 }
 
-const Login = ({ handleSubmit, history }: { handleSubmit: any; history: any }) => {
+const Login = ({
+  handleSubmit,
+  history
+}: {
+  handleSubmit: any
+  history: any
+}) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -43,9 +51,15 @@ const Login = ({ handleSubmit, history }: { handleSubmit: any; history: any }) =
           />
         </div>
         <div className="d-flex justify-content-center">
-          <button type="submit" className="btn btn-raised btn-success btn-lg mt-5">
+          <button
+            type="submit"
+            className="btn btn-raised btn-success btn-lg mt-5"
+          >
             Login
           </button>
+        </div>
+        <div className="d-flex justify-content-center">
+          <Link to="/create">Sign Up</Link>
         </div>
       </form>
     </div>
