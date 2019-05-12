@@ -4,6 +4,23 @@ import Order from '../models/order'
 import Product from '../models/product'
 const router = express.Router()
 
+router.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (req.session!.user) {
+    res.send(req.session!.user)
+  } else {
+    res.sendStatus(204)
+  }
+})
+
+router.delete('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (req.session!.user) {
+    delete req.session!.user
+    res.sendStatus(204)
+  } else {
+    res.sendStatus(404)
+  }
+})
+
 router.put('/login', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   User.findOne({
     where: {
@@ -27,6 +44,7 @@ router.put('/login', (req: express.Request, res: express.Response, next: express
           })()
           delete req.session!.order
         }
+        req.session!.user = user
         res.send(user)
       } catch (e) {
         console.log('deleting order from req.session')
