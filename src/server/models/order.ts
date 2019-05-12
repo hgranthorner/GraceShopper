@@ -64,20 +64,23 @@ class Order extends Model<Order> {
         // cart = order with status cart
         return OrdersProducts.findAll({
           where: {
-            orderId: cart.id
-          }
-        }).then(async (userOrderCart) => {
-          // userOrderCart is the orderProducts for the user's cart.
-          // If the productId exists, add quantity, else create product with that qty.
-          let foundProductFromCart = userOrderCart.find(orderProdLineItem => orderProdLineItem.productId === productId)
-          if (!foundProductFromCart) {
-            // product does not exist in cart. add product to order
-            return await OrdersProducts.create({ orderId: cart.id, productId: productId, quantity: quantity })
-          } else {
-            // product exists in cart. increase quantity
-            return await foundProductFromCart.update({ quantity: foundProductFromCart.quantity + quantity })
+            orderId: cart.id,
+            status: Status.Cart
           }
         })
+          .then(async (userOrderCart) => {
+            // userOrderCart is the orderProducts for the user's cart.
+            // If the productId exists, add quantity, else create product with that qty.
+            let foundProductFromCart = userOrderCart.find(orderProdLineItem => orderProdLineItem.productId === productId)
+            if (!foundProductFromCart) {
+              // product does not exist in cart. add product to order
+              return await OrdersProducts.create({ orderId: cart.id, productId: productId, quantity: quantity })
+            } else {
+              // product exists in cart. increase quantity
+              return await foundProductFromCart.update({ quantity: foundProductFromCart.quantity + quantity })
+            }
+          })
+          .then(() => cart.id)
       })
       .catch((e: Error) => console.log(`Failed to add to cart. \n${e}`))
   }
