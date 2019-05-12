@@ -103,5 +103,12 @@ conn
     console.log('Completed seeding products.')
   })
   // add a product to cart
-  .then(() => Order.addToCart(1, 2))
+  .then(() => Order.addToCart(1, 2, 10))
+  .then(() => Order.addToCart(2, 2, 5))
+  .then(() => Order.addToCart(2, 3, 6))
+  .then(() => Order.addToCart(2, 4, 7))
+  .then(() => Order.addToCart(3, 2, 5))
+  .then(() => Order.addToCart(4, 2, 5))
+  .then(() => Order.emptyCart(1))
+  .then(() => console.log('finished with everything'))
   .catch((e: Error) => console.log(`Failed to seed. Here's why:\n${e}`))
