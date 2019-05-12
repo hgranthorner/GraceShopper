@@ -7,7 +7,15 @@ const OrderRow = ({ product }: { product: Product }) => {
       <th>{product.id}</th>
       <th>{product.name}</th>
       <th>{product.price}</th>
-      <th>{product.quantity}</th>
+      <th>
+        <button type="button" className="btn btn-info">
+          -
+        </button>
+        {product.OrdersProducts.quantity}
+        <button type="button" className="btn btn-info">
+          +
+        </button>
+      </th>
     </tr>
   )
 }

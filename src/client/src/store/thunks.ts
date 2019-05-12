@@ -91,7 +91,10 @@ export const fetchOrders = () => {
   return (dispatch: any) => {
     axios
       .get(`/api/users/${store.getState().user.id}/orders`)
-      .then(res => res.data)
+      .then(res => {
+        console.log(res.data)
+        return res.data
+      })
       .then((orders: Array<Order>) => dispatch(actions.getOrders(orders)))
   }
 }
