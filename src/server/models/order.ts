@@ -33,11 +33,12 @@ class Order extends Model<Order> {
   products!: Product[]
 
   static addToCart(userId: number, productId: number, quantity: number = 1) {
+    console.log(`Add to Cart: User|Product|Qty: ${userId}|${productId}|${quantity}`)
     // 1. no orders: make a first cart
     // 2. there are orders, but no cart: make a cart
     // 3. there is a cart, find one
 
-    Order.findAll({
+    return Order.findAll({
       where: {
         userId,
         status: Status.Cart
@@ -46,12 +47,12 @@ class Order extends Model<Order> {
       .then(async orders => {
         let cart
         if (orders.length === 0) {
-          console.log('cannot find order: creating one')
+          console.log(`cannot find order for userId ${userId}: creating one`)
           cart = await Order.create({ userId, status: Status.Cart })
         } else {
           cart = orders.find(order => order.status === Status.Cart)
           if (!cart) {
-            console.log('cannot find cart: creating one')
+            console.log(`cannot find cart for userId : creating one`)
             cart = await Order.create({ userId, status: Status.Cart })
           }
         }
@@ -66,7 +67,7 @@ class Order extends Model<Order> {
   static emptyCart(userId: number) {
     // removes all items from a user's cart.
     // finds a user's cart. removes all associated orderProduct 
-    Order.findOne({
+    return Order.findOne({
       where: {
         userId: userId,
         status: Status.Cart

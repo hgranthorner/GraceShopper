@@ -99,12 +99,36 @@ conn
     console.log('Completed seeding products.')
   })
   // add a product to cart
-  .then(() => Order.addToCart(1, 2, 10))
-  .then(() => Order.addToCart(2, 2, 5))
-  .then(() => Order.addToCart(2, 3, 6))
-  .then(() => Order.addToCart(2, 4, 7))
-  .then(() => Order.addToCart(3, 2, 5))
-  .then(() => Order.addToCart(4, 2, 5))
+  .then(async () => {
+    const order = await Order.addToCart(1, 2, 10)
+    console.log('Finished order #0')
+    return order
+  })
+  .then(async () => {
+    const order = await Order.addToCart(2, 2, 5)
+    console.log('Finished order #1')
+    return order
+  })
+  .then(async () => {
+    const order = await Order.addToCart(2, 3, 6)
+    console.log('Finished order #2')
+    return order
+  })
+  .then(async () => {
+    const order = await Order.addToCart(2, 4, 7)
+    console.log('Finished order #3')
+    return order
+  })
+  .then(async () => {
+    const order = await Order.addToCart(3, 2, 5)
+    console.log('Finished order #4')
+    return order
+  })
+  .then(async () => {
+    const order = await Order.addToCart(4, 2, 5)
+    console.log('Finished order #5')
+    return order
+  })
   .then(() => Order.emptyCart(1))
   .then(() => console.log('finished with everything'))
   .catch((e: Error) => console.log(`Failed to seed. Here's why:\n${e}`))
