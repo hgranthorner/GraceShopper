@@ -43,8 +43,8 @@ const Nav = ({ user, order }: { user: User; order: Order[] }) => {
                 {link.type === 'Cart'
                   ? order.length > 0
                     ? `${link.type}(${order.length})`
-                    : `${link.type}`
-                  : ''}
+                    : ''
+                  : `${link.type}`}
               </NavLink>
             ))}
       </div>
