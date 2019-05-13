@@ -92,7 +92,6 @@ export const fetchOrders = () => {
     axios
       .get(`/api/users/${store.getState().user.id}/orders`)
       .then(res => {
-        console.log(res.data)
         return res.data
       })
       .then((orders: Array<Order>) => dispatch(actions.getOrders(orders)))
@@ -139,5 +138,14 @@ export const createNewUser = ({ name, password }: { name: string; password: stri
       .post('/api/users', { name, password })
       .then(res => res.data)
       .then((user: User) => dispatch(actions.getUser(user)))
+  }
+}
+
+export const putCartLineItem = (productId: number, quantity: number) => {
+  return (dispatch: any) => {
+    return axios.put(`/api/users/${store.getState().user.id}/products/${productId}`, { quantity }).then(res => {
+      if (res.status === 204) dispatch(actions.updateCartLineItem(productId, quantity))
+      else console.error('Failed to update cart')
+    })
   }
 }

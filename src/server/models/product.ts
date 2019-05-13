@@ -1,12 +1,4 @@
-import {
-  Column,
-  Model,
-  Table,
-  DataType,
-  ForeignKey,
-  BelongsTo,
-  BelongsToMany
-} from 'sequelize-typescript'
+import { Column, Model, Table, DataType, ForeignKey, BelongsTo, BelongsToMany } from 'sequelize-typescript'
 import Category from './category'
 import Order from './order'
 import OrdersProducts from './ordersProducts'
@@ -55,7 +47,13 @@ class Product extends Model<Product> {
   category!: Category
 
   @BelongsToMany(() => Order, () => OrdersProducts)
-  orders!: Order[];
+  orders!: Order[]
+}
+
+export interface ProductWithQuantity extends Product {
+  OrdersProducts: {
+    quantity: number
+  }
 }
 
 export default Product

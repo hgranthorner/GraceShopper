@@ -33,7 +33,6 @@ class Order extends Model<Order> {
   products!: Product[]
 
   static addToCart(userId: number, productId: number, quantity: number = 1) {
-    console.log(`Add to Cart: User|Product|Qty: ${userId}|${productId}|${quantity}`)
     return Order.findOne({
       where: {
         userId,
@@ -43,7 +42,6 @@ class Order extends Model<Order> {
       .then(async orderCart => {
         let cart
         if (!orderCart) {
-          console.log(`cannot find cart for userId ${userId}: creating one`)
           cart = await Order.create({ userId, status: Status.Cart })
         } else cart = orderCart
         return cart
@@ -55,7 +53,7 @@ class Order extends Model<Order> {
           }
         })
           .then(async userOrderCart => {
-            let foundProductFromCart = userOrderCart.find(orderProdLineItem => orderProdLineItem.productId === productId)
+            let foundProductFromCart = userOrderCart.find(orderProdLineItem => orderProdLineItem.productId === Number(productId))
             if (!foundProductFromCart) {
               return await OrdersProducts.create({ orderId: cart.id, productId: productId, quantity: quantity })
             } else {

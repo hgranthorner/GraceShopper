@@ -5,11 +5,6 @@ import OrderDataTable from './OrderDataTable/OrderDataTable'
 import { fetchOrders } from '../../store'
 import { Link } from 'react-router-dom'
 
-// Cart = 'cart',
-// Processing = 'processing',
-// Shipped = 'shipped',
-// Delivered = 'delivered'
-
 const mapStateToProps = ({ orders }: { orders: Order[] }) => ({ orders })
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -28,7 +23,7 @@ const Order = ({ orders, fetchOrders }: { orders: Order[]; fetchOrders: any }) =
       {cart ? (
         <div>
           <h3>Your Cart</h3>
-          <OrderDataTable key={cart.id} order={cart} />
+          <OrderDataTable key={cart.id} order={cart} isCart={true} />
           <Link to={`/orders/${cart.id}/checkout`} className="btn btn-raised btn-success">
             Checkout
           </Link>
@@ -38,7 +33,7 @@ const Order = ({ orders, fetchOrders }: { orders: Order[]; fetchOrders: any }) =
         ? oldOrders.map(order => (
             <div>
               <h4>Status: {order.status}</h4>
-              <OrderDataTable key={order.id} order={order} />
+              <OrderDataTable key={order.id} order={order} isCart={false} />
             </div>
           ))
         : null}
