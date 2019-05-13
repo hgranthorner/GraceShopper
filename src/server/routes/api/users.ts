@@ -114,17 +114,24 @@ route.post(
       const productExists = req.session!.order.find(
         (product: Product) => product.id === req.body.id
       )
+      const totalQuantity = req.session!.order.reduce(
+        (acc: number, item: any) => {
+          acc += item.OrdersProducts.quantity
+          return acc
+        },
+        0
+      )
 
       if (productExists) {
-        productExists.OrdersProducts += 1
-        req.session!.order.push(productExists)
+        productExists.OrdersProducts.quantity += 1
+        res.send(`${totalQuantity}`)
       } else {
         req.body.OrdersProducts = { quantity: 1 }
         req.session!.order.push(req.body)
+        res.send(`${totalQuantity}`)
       }
-      res.send(`${req.session!.order.length}`)
+      //res.send(`${req.session!.order.length}`)
     } else {
-      console.log('found a user')
       // We have a logged in user, and a selected product.
       const userId = req.params.userId
       const product = req.body
