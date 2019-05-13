@@ -45,7 +45,11 @@ router.put(
           const userId: number = user!.id
           if (req.session!.order) {
             const order = req.session!.order
-            await Order.addToCart(userId, order[0].id)
+            await Order.addToCart(
+              userId,
+              order[0].id,
+              order[0].OrdersProducts.quantity
+            )
             await (async function loop() {
               for (let i = 1; i < order.length; i++) {
                 await Order.addToCart(
