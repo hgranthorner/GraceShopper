@@ -10,6 +10,7 @@ export const GET_ORDER = Symbol('redux get order')
 export const GET_ORDERS = Symbol('redux get orders')
 export const GET_CART_COUNT = Symbol('redux get cart count')
 export const UPDATE_SEARCHTERM = Symbol('redux update searchterm')
+export const UPDATE_LINE_ITEM = Symbol('redux update line item')
 
 // action creators
 
@@ -34,6 +35,12 @@ export const getOrders = (orders: Array<Order>) => ({
 export const getCartCount: ReduxTypes.ActionCreator = (count: number) => ({
   type: GET_CART_COUNT,
   count
+})
+
+export const updateCartLineItem: ReduxTypes.ActionCreator = (productId: number, quantity: number) => ({
+  type: UPDATE_LINE_ITEM,
+  productId,
+  quantity
 })
 
 export const updateSearchTerm: ReduxTypes.ActionCreator = (searchTerm: string) => ({ type: UPDATE_SEARCHTERM, searchTerm })
