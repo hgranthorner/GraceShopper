@@ -114,12 +114,12 @@ route.post(
       const productExists = req.session!.order.find(
         (product: Product) => product.id === req.body.id
       )
-      const totalQuantity = req.session!.order.reduce(
+      let totalQuantity = req.session!.order.reduce(
         (acc: number, item: any) => {
           acc += item.OrdersProducts.quantity
           return acc
         },
-        0
+        1
       )
 
       if (productExists) {
