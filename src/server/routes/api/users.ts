@@ -10,9 +10,9 @@ route.get(
   '/:id/orders',
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
     if (req.params.id === '-1') {
-      // if (!req.session!.order) {
-      //   req.session!.order = []
-      // }
+      if (!req.session!.order) {
+        req.session!.order = []
+      }
       const cart = [
         {
           id: -1,
@@ -120,6 +120,7 @@ route.post(
         },
         1
       )
+
       if (productExists) {
         productExists.OrdersProducts.quantity += 1
         res.send(`${totalQuantity}`)
