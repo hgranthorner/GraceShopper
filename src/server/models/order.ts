@@ -95,6 +95,7 @@ class Order extends Model<Order> {
   static emptyCart(userId: number) {
     // removes all items from a user's cart.
     // finds a user's cart. removes all associated orderProduct
+    // delete the order with status cart
     return Order.findOne({
       where: {
         userId: userId,
@@ -110,6 +111,7 @@ class Order extends Model<Order> {
         }).then(cartItems => {
           return cartItems.map(cartItem => cartItem.destroy())
         })
+          .then(() => cart.destroy())
       })
       .catch(er => console.log(`Failed to empty cart.\n${er}`))
   }
