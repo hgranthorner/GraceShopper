@@ -31,7 +31,7 @@ const Checkout = ({
     fetchOrder(match.params.orderId)
   }, [])
 
-  const totalCost = order ? order.products.reduce((acc: number, product) => product.quantity * product.price, 0) : 0
+  const totalCost = order ? order.products.reduce((acc: number, product) => acc += product.OrdersProducts.quantity * product.price, 0) : 0
   const isLoggedIn = user.id === -1 ? false : true
   const checkout = () => {
     checkoutOrder(order.id)
