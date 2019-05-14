@@ -42,10 +42,6 @@ export interface Order {
   products: Array<Product>
 }
 
-export interface cartOnSession {
-  id: number
-  status: string
-  userId: number
-  products: Array<Product>
+export interface cartOnSession extends Order {
   cartCount: number
 }
