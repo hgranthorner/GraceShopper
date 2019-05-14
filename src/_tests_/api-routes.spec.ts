@@ -5,7 +5,7 @@ import { Sequelize } from 'sequelize-typescript'
 import Category from '../server/models/category'
 import Product from '../server/models/product'
 import User from '../server/models/user'
-import Order from '../server/models/order'
+import Order, { Status } from '../server/models/order'
 let sequelize: Sequelize
 
 describe('test the root api path', () => {
@@ -35,13 +35,11 @@ describe('test the root api path', () => {
             description: 'this is bazz',
             categoryId: category.id
           }),
-          Order.create({ userId: moe.id }),
-          Order.create({ userId: moe.id })
+          Order.create({ userId: moe.id, status: Status.Delivered }),
+          Order.create({ userId: moe.id, status: Status.Cart })
         ])
       })
       .then(([bar, bazz, order]) => {
-        // bar.orderId = order.id
-        // bazz.orderId = order.id
         bar.save()
         bazz.save()
       })
@@ -65,9 +63,8 @@ describe('test the root api path', () => {
     return request(app)
       .get(`/api/users/${1}/orders`)
       .then((response: any) => {
-        expect(response.body).toHaveProperty('orders')
-        expect(response.body.orders).toHaveLength(2)
-        expect(response.body.orders[0].userId).toBe(1)
+        expect(response.body).toHaveLength(2)
+        expect(response.body[0].userId).toBe(1)
       })
   })
 
@@ -75,18 +72,8 @@ describe('test the root api path', () => {
     return request(app)
       .get(`/api/users/${1}/orders/${1}`)
       .then((response: any) => {
-        expect(response.body).toHaveProperty('orders')
-        expect(response.body.orders).toHaveLength(1)
-      })
-  })
-
-  test('GET a single product in a single order associated with a single user', () => {
-    return request(app)
-      .get(`/api/users/${1}/orders/${1}/products/${1}`)
-      .then((response: any) => {
-        expect(response.body.orders[0]).toHaveProperty('products')
-        expect(response.body.orders[0].products).toHaveLength(1)
-        expect(response.body.orders[0].products[0].categoryId).toBe(1)
+        expect(response.body).toBeInstanceOf(Object)
+        expect(response.body).toHaveProperty('status')
       })
   })
 })
