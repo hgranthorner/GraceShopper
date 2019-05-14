@@ -10,7 +10,8 @@ import {
   checkIfLoggedIn,
   addItemToCart,
   logout,
-  checkoutOrder
+  checkoutOrder,
+  fetchCartCount
 } from './thunks'
 import { updateSearchTerm } from './actions'
 
@@ -27,5 +28,6 @@ export {
   checkIfLoggedIn,
   addItemToCart,
   logout,
-  checkoutOrder
+  checkoutOrder,
+  fetchCartCount
 }

@@ -3,7 +3,13 @@ import { ThunkDispatch } from 'redux-thunk'
 
 import store from './store'
 import * as actions from './actions'
-import { User, Product, Category, Order } from 'src/@types/redux-types'
+import {
+  User,
+  Product,
+  Category,
+  Order,
+  cartOnSession
+} from 'src/@types/redux-types'
 import { initialUser } from './user-reducer'
 import { Dispatch } from 'redux'
 
@@ -12,7 +18,9 @@ export const fetchProducts = () => {
     return axios
       .get('/api/products')
       .then(res => res.data)
-      .then((products: Array<Product>) => dispatch(actions.getProducts(products)))
+      .then((products: Array<Product>) =>
+        dispatch(actions.getProducts(products))
+      )
   }
 }
 
@@ -32,7 +40,9 @@ export const fetchProductsByCategory = (id: number) => {
     return axios
       .get(`/api/categories/${id}/products`)
       .then(res => res.data)
-      .then((category: Category) => dispatch(actions.getProducts(category.products)))
+      .then((category: Category) =>
+        dispatch(actions.getProducts(category.products))
+      )
   }
 }
 
@@ -41,7 +51,9 @@ export const fetchCategories = () => {
     return axios
       .get('/api/categories')
       .then(res => res.data)
-      .then((categories: Array<Category>) => dispatch(actions.getCategories(categories)))
+      .then((categories: Array<Category>) =>
+        dispatch(actions.getCategories(categories))
+      )
   }
 }
 
@@ -98,7 +110,28 @@ export const fetchOrders = () => {
   }
 }
 
-export const login = ({ name, password }: { name: string; password: string }) => {
+export const fetchCartCount = () => {
+  return (dispatch: any) => {
+    axios
+      .get(
+        `/api/users/${store.getState().user.id}/orders/${
+          store.getState().order.id
+        }`
+      )
+      .then(res => res.data)
+      .then((cart: cartOnSession) =>
+        dispatch(actions.getCartCount(cart.cartCount))
+      )
+  }
+}
+
+export const login = ({
+  name,
+  password
+}: {
+  name: string
+  password: string
+}) => {
   return (dispatch: any) => {
     return axios
       .put('/auth/login', { name, password })
@@ -109,7 +142,9 @@ export const login = ({ name, password }: { name: string; password: string }) =>
 
 export const logout = () => {
   return (dispatch: any) => {
-    return axios.delete('/auth').then(() => dispatch(actions.getUser(initialUser)))
+    return axios
+      .delete('/auth')
+      .then(() => dispatch(actions.getUser(initialUser)))
   }
 }
 
@@ -126,13 +161,21 @@ export const addItemToCart = (userId: number, product: Product) => {
 export const checkoutOrder = (orderId: number) => {
   return (dispatch: Dispatch) => {
     return axios
-      .put(`/api/users/${store.getState().user.id}/orders/${orderId}`, { orderId })
+      .put(`/api/users/${store.getState().user.id}/orders/${orderId}`, {
+        orderId
+      })
       .then(res => res.data)
       .then(() => dispatch(actions.getCartCount(0)))
   }
 }
 
-export const createNewUser = ({ name, password }: { name: string; password: string }) => {
+export const createNewUser = ({
+  name,
+  password
+}: {
+  name: string
+  password: string
+}) => {
   return (dispatch: any) => {
     return axios
       .post('/api/users', { name, password })
@@ -143,9 +186,14 @@ export const createNewUser = ({ name, password }: { name: string; password: stri
 
 export const putCartLineItem = (productId: number, quantity: number) => {
   return (dispatch: any) => {
-    return axios.put(`/api/users/${store.getState().user.id}/products/${productId}`, { quantity }).then(res => {
-      if (res.status === 204) dispatch(actions.updateCartLineItem(productId, quantity))
-      else console.error('Failed to update cart')
-    })
+    return axios
+      .put(`/api/users/${store.getState().user.id}/products/${productId}`, {
+        quantity
+      })
+      .then(res => {
+        if (res.status === 204)
+          dispatch(actions.updateCartLineItem(productId, quantity))
+        else console.error('Failed to update cart')
+      })
   }
 }

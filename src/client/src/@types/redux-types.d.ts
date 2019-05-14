@@ -41,3 +41,11 @@ export interface Order {
   userId: number
   products: Array<Product>
 }
+
+export interface cartOnSession {
+  id: number
+  status: string
+  userId: number
+  products: Array<Product>
+  cartCount: number
+}
