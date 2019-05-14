@@ -159,3 +159,12 @@ export const deleteCart = () => {
       .then(() => dispatch(actions.emptyCart()))
   }
 }
+
+export const putPassword = (password: string) => {
+  return (dispatch: any) => {
+    return axios
+      .put(`/auth/users/${store.getState().user.id}`, { password })
+      .then(res => res.data)
+      .then(user => dispatch(actions.getUser(user)))
+  }
+}

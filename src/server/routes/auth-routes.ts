@@ -55,4 +55,13 @@ router.put('/login', (req: express.Request, res: express.Response, next: express
   })
 })
 
+router.put('/users/:userId', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  User.update({ password: req.body.password }, { where: { id: req.params.userId } })
+    .then(async () => {
+      const user = await User.findOne({ where: { id: req.params.userId } })
+      res.send(user)
+    })
+    .catch(next)
+})
+
 export default router

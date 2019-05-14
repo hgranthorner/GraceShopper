@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Home, Nav, Footer, Product, Login, Order, Checkout } from './components'
+import { Home, Nav, Footer, Product, Login, Order, Checkout, Account } from './components'
 import { connect } from 'react-redux'
 import { checkIfLoggedIn } from './store'
 import { User } from './@types/redux-types'
@@ -26,8 +26,9 @@ const App = ({ user, checkIfLoggedIn }: { user: User; checkIfLoggedIn: any }) =>
         <Route path="/categories/" component={Home} />
         <Route path="/products/:id" exact component={Product} />
         <Route path="/login" exact component={Login} />
-        <Route path="/orders" exact component={Order} />"
-        <Route path="/orders/:orderId/checkout" exact component={Checkout} />"
+        <Route path="/orders" exact component={Order} />
+        <Route path="/orders/:orderId/checkout" exact component={Checkout} />
+        <Route path="/account" exact component={Account} />
       </Switch>
       <Footer />
     </HashRouter>
