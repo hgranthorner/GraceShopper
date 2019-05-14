@@ -4,14 +4,16 @@ import { connect } from 'react-redux'
 import OrderDataTable from './OrderDataTable/OrderDataTable'
 import { fetchOrders } from '../../store'
 import { Link } from 'react-router-dom'
+import { deleteCart } from '../../store/thunks'
 
 const mapStateToProps = ({ orders }: { orders: Order[] }) => ({ orders })
 
 const mapDispatchToProps = (dispatch: any) => ({
-  fetchOrders: () => dispatch(fetchOrders())
+  fetchOrders: () => dispatch(fetchOrders()),
+  emptyCart: () => dispatch(deleteCart())
 })
 
-const Order = ({ orders, fetchOrders }: { orders: Order[]; fetchOrders: any }) => {
+const Order = ({ orders, fetchOrders, emptyCart }: { orders: Order[]; fetchOrders: any; emptyCart: any }) => {
   useEffect(() => {
     fetchOrders()
   }, [])
@@ -24,9 +26,14 @@ const Order = ({ orders, fetchOrders }: { orders: Order[]; fetchOrders: any }) =
         <div>
           <h3>Your Cart</h3>
           <OrderDataTable key={cart.id} order={cart} isCart={true} />
-          <Link to={`/orders/${cart.id}/checkout`} className="btn btn-raised btn-success">
-            Checkout
-          </Link>
+          <div className="btn-group">
+            <Link to={`/orders/${cart.id}/checkout`} className="btn btn-raised btn-success">
+              Checkout
+            </Link>
+            <button className="btn btn-raised btn-danger" onClick={emptyCart}>
+              Empty Cart
+            </button>
+          </div>
         </div>
       ) : null}
       {oldOrders.length > 0

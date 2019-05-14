@@ -1,7 +1,7 @@
 import React from 'react'
 import { Product } from 'src/@types/redux-types'
 import { connect } from 'react-redux'
-import { putCartLineItem } from '../../../store/thunks'
+import { putCartLineItem, deleteCart } from '../../../store/thunks'
 
 const mapDispatchToProps = (dispatch: any) => ({
   updateCart: (productId: number, quantity: number) => dispatch(putCartLineItem(productId, quantity))
@@ -15,7 +15,12 @@ const OrderRow = ({ product, isCart, updateCart }: { product: Product; isCart: b
       <th>{product.price}</th>
       <th>
         {isCart ? (
-          <button type="button" className="btn btn-info" onClick={() => updateCart(product.id, -1)}>
+          <button
+            type="button"
+            className="btn btn-info"
+            disabled={product.OrdersProducts.quantity === 1}
+            onClick={() => updateCart(product.id, -1)}
+          >
             -
           </button>
         ) : null}
@@ -26,6 +31,13 @@ const OrderRow = ({ product, isCart, updateCart }: { product: Product; isCart: b
           </button>
         ) : null}
       </th>
+      {isCart ? (
+        <th>
+          <button type="button" className="btn btn-raised btn-danger" onClick={() => updateCart(product.id, 0)}>
+            🗑️
+          </button>
+        </th>
+      ) : null}
     </tr>
   )
 }

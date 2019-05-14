@@ -11,6 +11,7 @@ export const GET_ORDERS = Symbol('redux get orders')
 export const GET_CART_COUNT = Symbol('redux get cart count')
 export const UPDATE_SEARCHTERM = Symbol('redux update searchterm')
 export const UPDATE_LINE_ITEM = Symbol('redux update line item')
+export const EMPTY_CART = Symbol('redux empty cart')
 
 // action creators
 
@@ -44,3 +45,4 @@ export const updateCartLineItem: ReduxTypes.ActionCreator = (productId: number, 
 })
 
 export const updateSearchTerm: ReduxTypes.ActionCreator = (searchTerm: string) => ({ type: UPDATE_SEARCHTERM, searchTerm })
+export const emptyCart: ReduxTypes.ActionCreator = () => ({ type: EMPTY_CART })
