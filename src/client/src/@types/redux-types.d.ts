@@ -41,3 +41,7 @@ export interface Order {
   userId: number
   products: Array<Product>
 }
+
+export interface cartOnSession extends Order {
+  cartCount: number
+}

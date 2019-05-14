@@ -4,10 +4,19 @@ import { connect } from 'react-redux'
 import { putCartLineItem, deleteCart } from '../../../store/thunks'
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateCart: (productId: number, quantity: number) => dispatch(putCartLineItem(productId, quantity))
+  updateCart: (productId: number, quantity: number) =>
+    dispatch(putCartLineItem(productId, quantity))
 })
 
-const OrderRow = ({ product, isCart, updateCart }: { product: Product; isCart: boolean; updateCart: any }) => {
+const OrderRow = ({
+  product,
+  isCart,
+  updateCart
+}: {
+  product: Product
+  isCart: boolean
+  updateCart: any
+}) => {
   return (
     <tr>
       <th>{product.id}</th>
@@ -26,14 +35,22 @@ const OrderRow = ({ product, isCart, updateCart }: { product: Product; isCart: b
         ) : null}
         {product.OrdersProducts.quantity}
         {isCart ? (
-          <button type="button" className="btn btn-info" onClick={() => updateCart(product.id, 1)}>
+          <button
+            type="button"
+            className="btn btn-info"
+            onClick={() => updateCart(product.id, 1)}
+          >
             +
           </button>
         ) : null}
       </th>
       {isCart ? (
         <th>
-          <button type="button" className="btn btn-raised btn-danger" onClick={() => updateCart(product.id, 0)}>
+          <button
+            type="button"
+            className="btn btn-raised btn-danger"
+            onClick={() => updateCart(product.id, 0)}
+          >
             🗑️
           </button>
         </th>
