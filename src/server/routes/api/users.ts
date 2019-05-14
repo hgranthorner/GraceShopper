@@ -190,5 +190,15 @@ route.put(
       res.sendStatus(204)
     }
   }
-)
+})
+
+route.delete('/:userId/orders', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const userId = Number(req.params.userId)
+  if (userId !== -1) {
+    await Order.emptyCart(userId)
+  } else {
+    delete req.session!.order
+  }
+  res.sendStatus(204)
+})
 export default route

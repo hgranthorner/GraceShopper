@@ -189,11 +189,19 @@ export const putCartLineItem = (productId: number, quantity: number) => {
     return axios
       .put(`/api/users/${store.getState().user.id}/products/${productId}`, {
         quantity
-      })
+      }) //
       .then(res => {
         if (res.status === 204)
           dispatch(actions.updateCartLineItem(productId, quantity))
         else console.error('Failed to update cart')
       })
+  }
+}
+
+export const deleteCart = () => {
+  return (dispatch: any) => {
+    return axios
+      .delete(`/api/users/${store.getState().user.id}/orders`) //
+      .then(() => dispatch(actions.emptyCart()))
   }
 }

@@ -40,18 +40,6 @@ describe('test the root api path', () => {
     return
   })
 
-  test('we can GET users', () => {
-    return request(app)
-      .get('/api/users')
-      .then((response: any) => {
-        expect(response.statusCode).toBe(200)
-        expect(response.body[0]).toHaveProperty('name')
-        expect(response.body[0]).toHaveProperty('password')
-        expect(response.body[0].name).toBe('moe')
-        expect(response.body[0].password).toBe('12345')
-      })
-  })
-
   test('we can GET products', () => {
     return request(app)
       .get('/api/products')

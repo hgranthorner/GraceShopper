@@ -1,5 +1,5 @@
 import { Order, ReduxTypes, Product } from 'src/@types/redux-types'
-import { GET_ORDERS, UPDATE_LINE_ITEM } from './actions'
+import { GET_ORDERS, UPDATE_LINE_ITEM, EMPTY_CART } from './actions'
 
 const initialOrders: Array<Order> = []
 
@@ -8,6 +8,9 @@ export default (state = initialOrders, action: ReduxTypes.Action) => {
     case GET_ORDERS:
       state = action.orders
       return state
+
+    case EMPTY_CART:
+      return [...state.filter(order => order.status !== 'cart')]
 
     case UPDATE_LINE_ITEM:
       const testState: Order[] = JSON.parse(JSON.stringify(state))
