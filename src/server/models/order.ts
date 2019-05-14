@@ -67,7 +67,7 @@ class Order extends Model<Order> {
       .catch((e: Error) => console.log(`Failed to add to cart. \n${e}`))
   }
 
-  // Removes a product from cart. if optional paramter removeAll=true, then it removes all quantity of this item from the cart
+  // Decreases a product quanttiy from cart. if optional paramter removeAll=true, then it removes all quantity of this item from the cart
   static decreaseProductQuantityFromCart(userId: number, productId: number, removeAll: boolean = false) {
     // find user's cart
     return Order.findOne({
