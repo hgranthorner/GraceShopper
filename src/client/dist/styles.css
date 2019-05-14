@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  margin-bottom: 60px; /* Margin bottom by footer height */
+  margin-bottom: 60px !important; /* Margin bottom by footer height */
 }
 
 div > img {
