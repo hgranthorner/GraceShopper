@@ -67,7 +67,7 @@ class Order extends Model<Order> {
       .catch((e: Error) => console.log(`Failed to add to cart. \n${e}`))
   }
 
-  // Removes a product from cart. if optional paramter removeAll=true, then it removes all quantity of this item from the cart
+  // Decreases a product quanttiy from cart. if optional paramter removeAll=true, then it removes all quantity of this item from the cart
   static decreaseProductQuantityFromCart(userId: number, productId: number, removeAll: boolean = false) {
     // find user's cart
     return Order.findOne({
@@ -95,6 +95,7 @@ class Order extends Model<Order> {
   static emptyCart(userId: number) {
     // removes all items from a user's cart.
     // finds a user's cart. removes all associated orderProduct
+    // delete the order with status cart
     return Order.findOne({
       where: {
         userId: userId,
@@ -110,6 +111,7 @@ class Order extends Model<Order> {
         }).then(cartItems => {
           return cartItems.map(cartItem => cartItem.destroy())
         })
+          .then(() => cart.destroy())
       })
       .catch(er => console.log(`Failed to empty cart.\n${er}`))
   }
