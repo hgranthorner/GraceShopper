@@ -60,12 +60,9 @@ route.get(
         id: -1,
         status: Status.Cart,
         userId: -1,
-        products: req.session!.order,
-        cartCount: req.session!.order.reduce((acc: number, product: any) => {
-          acc += product.OrdersProducts.quantity
-          return acc
-        }, 0)
+        products: req.session!.order
       }
+
       res.send(cart)
     } else {
       Order.findOne({
@@ -209,4 +206,5 @@ route.delete(
     res.sendStatus(204)
   }
 )
+
 export default route
